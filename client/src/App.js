@@ -13,7 +13,7 @@ function App() {
     })
 
     const apiTest = () => {
-        fetch('http://localhost:8080/api')
+        fetch('/api')
             .then(res => res.json())
             .then(data => setState({...data}))        
     }
