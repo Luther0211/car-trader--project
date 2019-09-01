@@ -4,3 +4,4 @@ node_modules
 
 # CLIENT
 client/node_modules
+client/build

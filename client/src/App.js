@@ -1,26 +1,28 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 
 function App() {
     const [state, setState] = useState({
-        data: false
+        data: []
     })
 
-    useEffect(() => {
-        if(!state.data) {
-            apiTest()
-        }
-    })
+  
 
     const apiTest = () => {
         fetch('/api')
             .then(res => res.json())
-            .then(data => setState({...data}))        
+            .then(data => setState({data: [...data]}))        
     }
     
   return (
     <div className="App">
-        fetch data from server: { state.data }
+        
+        <button onClick={apiTest}>Search</button>
+
+        {state.data.map((elem, i) => {
+            return <p>POST #{i+1}: {elem.title}</p>
+        })}
+
     </div>
   );
 }
