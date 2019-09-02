@@ -1,5 +1,8 @@
 import React, {useState} from 'react';
+import './bootstrap.css';
 import './App.css';
+// COMPONENTS
+import Navbar from './components/Navbar/Navbar'
 
 function App() {
     const [state, setState] = useState({
@@ -16,6 +19,8 @@ function App() {
     
   return (
     <div className="App">
+        <Navbar />
+
         
         <button onClick={apiTest}>Search</button>
 
