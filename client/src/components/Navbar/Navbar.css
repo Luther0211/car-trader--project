@@ -18,5 +18,12 @@
 }
 
 .Navbar__user-link:hover {
-    color: var(--secondary)
+    color: #e2e2e2
+}
+
+.Navbar__user-number {
+    font-size: 14px;
+    top: 5%;
+    left:62%;
+    background-color: var(--red);
 }
