@@ -34,7 +34,7 @@ const Home = () => {
                                 </select>
                             </div>
                             <div className="col-12 col-sm-6 col-md-3 mb-2">
-                            <input className="form-control" type="text" maxLength="5" onInput={(e) => checkNumValue(e)} />
+                            <input className="form-control" type="text" placeholder="ZIP Code" maxLength="5" onInput={(e) => checkNumValue(e)} />
                             </div>
                             <div className="col-12 col-sm-6 col-md-2 mb-2">
                                 <button className="btn btn-info w-100" type="submit">Search</button>
