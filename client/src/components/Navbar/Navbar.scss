@@ -1,0 +1,30 @@
+.Navbar {
+    height: 75px;
+    
+    &__main-link {
+        color: var(--light);
+        font-weight: 700;
+        font-size: 30px;
+
+        &:hover {
+            color: var(--light);
+        }
+    }
+
+    &__user-link {
+        color: var(--light);
+        font-weight: 700;
+        font-size: 40px;
+        
+        &:hover {
+            color: #e2e2e2
+        }
+    }
+    
+    &__user-number {
+        font-size: 14px;
+        top: 5%;
+        left:62%;
+        background-color: var(--red);
+    }
+}
