@@ -1,13 +1,22 @@
-.-Navbar {
+.Navbar {
     height: 75px;
 }
 
-.-Navbar__main-link {
+.Navbar__main-link,
+.Navbar__user-link {
     color: var(--light);
     font-weight: 700;
     font-size: 30px;
 }
 
-.-Navbar__main-link:hover {
+.Navbar__main-link:hover {
     color: var(--light);
+}
+
+.Navbar__user-link {
+    font-size: 40px;
+}
+
+.Navbar__user-link:hover {
+    color: var(--secondary)
 }

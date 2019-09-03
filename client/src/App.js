@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './bootstrap.css';
+import './fontawesome.css';
 import './App.css';
 // COMPONENTS
 import Navbar from './components/Navbar/Navbar'
