@@ -5,6 +5,10 @@ import './Home.scss'
 
 const Home = () => {
 
+    const checkNumValue = e => {
+        e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
+    }
+
     return (
         <div className="Home">
             <div className="Home__main-section jumbotron rounded-0">
@@ -30,7 +34,7 @@ const Home = () => {
                                 </select>
                             </div>
                             <div className="col-12 col-sm-6 col-md-3 mb-2">
-                                <input className="form-control" type="text" placeholder="ZIP Code (0-9)" name="zip" pattern="[0-9]*" />
+                            <input className="form-control" type="text" maxLength="5" onInput={(e) => checkNumValue(e)} />
                             </div>
                             <div className="col-12 col-sm-6 col-md-2 mb-2">
                                 <button className="btn btn-info w-100" type="submit">Search</button>
