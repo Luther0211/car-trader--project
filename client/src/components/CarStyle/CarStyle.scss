@@ -1,0 +1,11 @@
+.CarStyle {
+    font-weight: bold;
+    
+    & > *, & > *:hover {
+        color: var(--dark);
+    }
+    
+    &:hover {
+        text-decoration: underline;
+    }
+}

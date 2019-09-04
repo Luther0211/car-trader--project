@@ -16,3 +16,12 @@
         }
     }
 }
+
+@media(min-width: 1200px) {
+    .Home {
+        
+        &__main-container {
+            margin-bottom: 300px;
+        }
+    }
+}
