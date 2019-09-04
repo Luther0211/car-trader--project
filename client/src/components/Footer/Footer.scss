@@ -1,0 +1,15 @@
+.Footer {
+    font-size: 20px;
+    
+    &__follow {
+        font-weight: 700;
+    }
+    
+    a {
+        color: rgba(white, .8);
+        
+        &:hover {
+            color: rgba(white, .6);
+        }
+    }
+}

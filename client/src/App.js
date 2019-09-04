@@ -5,6 +5,7 @@ import './App.scss';
 // COMPONENTS
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
+import Footer from './components/Footer/Footer';
 
 function App() {
     const [state, setState] = useState({
@@ -32,6 +33,7 @@ function App() {
             return <p>POST #{i+1}: {elem.title}</p>
         })}
 
+        <Footer />
     </div>
   );
 }
