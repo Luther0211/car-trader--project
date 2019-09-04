@@ -23,9 +23,9 @@ function App() {
     
   return (
     <div className="App">
-        <Navbar />
+        <Router>
+            <Navbar />
 
-            <Router>
 
                 <Switch>
                     <Route exact path="/" component={() => <Home />} />
@@ -33,18 +33,18 @@ function App() {
                     <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />
                 </Switch>
 
-            </Router>
         
         
 
         
-        <button onClick={apiTest}>Search</button>
+            <button onClick={apiTest}>Search</button>
 
-        {state.data.map((elem, i) => {
-            return <p>POST #{i+1}: {elem.title}</p>
-        })}
+            {state.data.map((elem, i) => {
+                return <p>POST #{i+1}: {elem.title}</p>
+            })}
 
-        <Footer />
+            <Footer />
+        </Router>
     </div>
   );
 }
