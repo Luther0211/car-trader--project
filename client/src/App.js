@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import './bootstrap.css';
 import './fontawesome.css';
 import './App.scss';
@@ -24,7 +25,17 @@ function App() {
     <div className="App">
         <Navbar />
 
-        <Home />
+            <Router>
+
+                <Switch>
+                    <Route exact path="/" component={() => <Home />} />
+                    <Route exact path="/search" component={() => (<h1>Search Component</h1>)} />
+                    <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />
+                </Switch>
+
+            </Router>
+        
+        
 
         
         <button onClick={apiTest}>Search</button>
