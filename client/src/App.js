@@ -6,6 +6,7 @@ import './App.scss';
 // COMPONENTS
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
+import Results from './components/Results/Results'
 import Footer from './components/Footer/Footer';
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
 
                 <Switch>
                     <Route exact path="/" component={() => <Home />} />
-                    <Route exact path="/search" component={() => (<h1>Search Component</h1>)} />
+                    <Route exact path="/results" component={() => <Results />} />
                     <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />
                 </Switch>
 
