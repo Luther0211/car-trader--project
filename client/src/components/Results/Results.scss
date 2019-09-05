@@ -1,0 +1,21 @@
+.Results {
+
+    &__bar {
+        background-color: white;
+
+        .form-control {
+            width: 230px;
+        }
+    }
+    
+    &__information {
+        color: var(--dark);
+        font-weight: bold;
+        margin: 0;
+    }
+
+    &__number,
+    &__zip {
+        color: var(--info);
+    }
+}
