@@ -4,7 +4,7 @@
         background-color: white;
 
         .form-control {
-            width: 230px;
+            width: 232px;
         }
     }
     
@@ -17,5 +17,18 @@
     &__number,
     &__zip {
         color: var(--info);
+    }
+}
+
+@media(max-width: 575px) {
+    .Results {
+        &__bar {
+            font-size: 14px;
+            
+            .form-control {
+                font-size: 14px;
+                width: 210px;
+            }
+        }
     }
 }

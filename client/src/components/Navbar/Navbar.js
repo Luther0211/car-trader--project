@@ -5,7 +5,7 @@ import './Navbar.scss'
 const Navbar = () => {
 
     return (
-        <nav className="Navbar navbar bg-info shadow-lg">
+        <nav className="Navbar navbar bg-info">
             <div className="container">
                 <Link to="/" className="Navbar__main-link navbar-brand p-0">Auto Listings</Link>
                 <a href="#2" className="Navbar__user-link position-relative">

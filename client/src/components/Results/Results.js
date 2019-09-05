@@ -5,7 +5,7 @@ const Results = () => {
 
     return (
         <div className="Results">
-            <div className="Results__bar">
+            <div className="Results__bar shadow-sm">
                 <div className="container py-2">
                     <div className="row">
                     
