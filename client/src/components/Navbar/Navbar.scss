@@ -28,3 +28,20 @@
         background-color: var(--red);
     }
 }
+
+
+@media(max-width: 768px) {
+    .Navbar {
+        height: 50px;
+
+        &__main-link {
+            font-size: 20px;
+        }
+        &__user-link {
+            font-size: 25px;
+        }
+        &__user-number {
+            font-size: 12px;
+        }
+    }
+}
