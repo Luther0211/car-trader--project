@@ -1,7 +1,7 @@
 import React from 'react'
 import './Results.scss'
 
-import { Accordion, Card} from 'react-bootstrap'
+import { Accordion, Card, Form} from 'react-bootstrap'
 
 const Results = () => {
 
@@ -131,7 +131,6 @@ const Results = () => {
                                     <Accordion.Collapse eventKey="3">
                                         <Card.Body>
                                         <div className="form-group">
-                                            <label htmlFor="input-year"><strong>Year</strong></label>
                                             <select className="form-control" id="input-year" defaultValue="">
                 
                                                 <option value="">Any</option>
@@ -304,7 +303,20 @@ const Results = () => {
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="5">
                                         <Card.Body>
-
+                                            {
+                                        ['Acura','Alfa Romeo', 'AMC', 'Aston Martin', 'Audi', 'Bentley', 'BMW', 'Bugatti', 'Buick', 'Cadillac', 'Chevrolet', 'Chrysler', 'Daewoo',
+                                        'Datsun', 'DeLorean', 'Dodge', 'Eagle', 'Ferrari', 'FIAT', 'Fisker', 'Ford', 'Freightliner', 'Genesis', 'Geo', 'GMC', 'Honda', 'HUMMER', 'Hyundai',
+                                        'INFINITI', 'Isuzu', 'Jaguar', 'Jeep', 'Karma', 'Kia', 'Lamborghini', 'Land Rover', 'Lexus', 'Lincoln', 'Lotus', 'Maserati', 'Maybach', 'MAZDA',
+                                        'McLaren', 'Mercedes-Benz', 'Mercury', 'MINI', 'Mitsubishi', 'Nissan', 'Oldsmobile', 'Plymouth', 'Pontiac', 'Porsche', 'RAM', 'Rolls-Royce', 'Saab',
+                                        'Saturn', 'Scion', 'smart', 'SRT', 'Subaru', 'Suzuki', 'Tesla', 'Toyota', 'Volkswagen', 'Volvo', 'Yugo'].map(make => (
+                                            <Form.Check 
+                                                type='checkbox'
+                                                id={`checkbox-make-${make}`}
+                                                label={make}
+                                                key={make}
+                                            />
+                                        ))
+                                        }
                                         </Card.Body>
                                     </Accordion.Collapse>
                                 </Card>
