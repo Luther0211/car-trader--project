@@ -280,7 +280,20 @@ const Results = () => {
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="4">
                                         <Card.Body>
-
+                                            <div className="form-group">
+                                                <select className="form-control">
+                                                    <option value="">Any</option>
+                                                    <option value="0-15000">Under 15,000</option>
+                                                    <option value="0-30000">Under 30,000</option>
+                                                    <option value="0-45000">Under 45,000</option>
+                                                    <option value="0-60000">Under 60,000</option>
+                                                    <option value="0-75000">Under 75,000</option>
+                                                    <option value="0-100000">Under 100,000</option>
+                                                    <option value="0-150000">Under 150,000</option>
+                                                    <option value="0-200000">Under 200,000</option>
+                                                    <option value="200000-999999">Over 200,000</option>
+                                                </select>
+                                            </div>
                                         </Card.Body>
                                     </Accordion.Collapse>
                                 </Card>
