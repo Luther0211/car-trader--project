@@ -6,3 +6,10 @@
 body {
     background-color: var(--light);
 }
+
+.form-control {
+    &:focus {
+        border:1px solid var(--info);
+        box-shadow: 0 0 4px var(--info);
+    }
+}
