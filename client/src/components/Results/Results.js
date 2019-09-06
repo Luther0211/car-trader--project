@@ -1,6 +1,8 @@
 import React from 'react'
 import './Results.scss'
 
+import { Accordion, Card} from 'react-bootstrap'
+
 const Results = () => {
 
     return (
@@ -42,6 +44,28 @@ const Results = () => {
                 <div className="col-md-4 pl-0 d-none d-md-inline-block">
                     <div className="Results__form border border-info">
                         <h5 className="text-center bg-info text-light py-2">Filter</h5>
+
+                        <form>
+                            <Accordion defaultActiveKey="0">
+                                <Card>
+                                    <Accordion.Toggle as={Card.Header} eventKey="0">
+                                        Click me!
+                                    </Accordion.Toggle>
+                                    <Accordion.Collapse eventKey="0">
+                                        <Card.Body>Hello! I'm the body</Card.Body>
+                                    </Accordion.Collapse>
+                                </Card>
+                                <Card>
+                                    <Accordion.Toggle as={Card.Header} eventKey="1">
+                                        Click me!
+                                    </Accordion.Toggle>
+                                    <Accordion.Collapse eventKey="1">
+                                        <Card.Body>Hello! I'm another body</Card.Body>
+                                    </Accordion.Collapse>
+                                </Card>
+                            </Accordion>
+                        </form>    
+
                     </div>
                 </div>
 
