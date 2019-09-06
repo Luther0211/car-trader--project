@@ -18,6 +18,10 @@
     &__zip {
         color: var(--info);
     }
+
+    &__form {
+        height: 800px;
+    }
 }
 
 @media(max-width: 575px) {

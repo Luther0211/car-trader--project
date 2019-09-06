@@ -31,6 +31,27 @@ const Results = () => {
                 </div>
             </div>
 
+            <div className="Results__body container pt-4">
+
+                <div className="d-md-none">
+                    <button className="Results__filter-btn btn btn-info">
+                        <i className="fas fa-filter"></i> Filter
+                    </button>
+                </div>
+            
+                <div className="col-md-4 pl-0 d-none d-md-inline-block">
+                    <div className="Results__form border border-info">
+                        <h5 className="text-center bg-info text-light py-2">Filter</h5>
+                    </div>
+                </div>
+
+                <div className="Results__list col-12 col-md-8 pr-0">
+
+                </div>
+
+
+            </div>
+
         </div>
     )
 }
