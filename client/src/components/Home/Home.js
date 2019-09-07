@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Home.scss'
 
 import CarStyle from '../CarStyle/CarStyle'
 
 
-const Home = ({carMakes, formValues, checkNumValue, onSelectChange, onFormSubmit }) => {
+const Home = ({carMakes, formValues, checkNumValue, onSelectChange, onFormSubmit, updateRedirect }) => {
+
+    useEffect(() => {
+        updateRedirect()
+    })
     
     return (
         <div className="Home">

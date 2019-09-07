@@ -3,7 +3,7 @@ import './Results.scss'
 
 import { Accordion, Card, Form} from 'react-bootstrap'
 
-const Results = ({carMakes, checkNumValue }) => {
+const Results = ({carMakes, formValues, checkNumValue }) => {
 
     const car_year = []
     for(let i = 2019; i >=1900; i--) {
@@ -72,7 +72,7 @@ const Results = ({carMakes, checkNumValue }) => {
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="input-zip"> <strong>ZIP Code</strong> </label>
-                                                <input className="form-control" id="input-zip" name="form-value--zip" type="text" maxLength="5" onInput={(e) => checkNumValue(e)} />
+                                                <input className="form-control" id="input-zip" name="zip" type="text" defaultValue={formValues.zip} maxLength="5" onInput={(e) => checkNumValue(e)} />
                                             </div>
                                         </Card.Body>
                                     </Accordion.Collapse>
@@ -103,22 +103,16 @@ const Results = ({carMakes, checkNumValue }) => {
                                     <Accordion.Collapse eventKey="2">
                                         <Card.Body>
                                             <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" name="form-value--condition-new" value="New" id="checkbox-new" />
-                                                <label className="form-check-label" htmlFor="checkbox-new">
-                                                    New
-                                                </label>
+                                                <input className="form-check-input" type="checkbox" name="condition-new" value="new" id="condition-new" defaultChecked={formValues.condition.includes('new')} />
+                                                <label className="form-check-label" htmlFor="condition-new">New</label>
                                             </div>
                                             <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" name="form-value--condition-used" value="Used" id="checkbox-used" />
-                                                <label className="form-check-label" htmlFor="checkbox-used">
-                                                    Used
-                                                </label>
+                                                <input className="form-check-input" type="checkbox" name="condition-used" value="used" id="condition-used" defaultChecked={formValues.condition.includes('used')} />
+                                                <label className="form-check-label" htmlFor="condition-used">Used</label>
                                             </div>
                                             <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" name="form-value--condition-certified" value="Certified" id="checkbox-certified" />
-                                                <label className="form-check-label" htmlFor="checkbox-certified">
-                                                    Certified
-                                                </label>
+                                                <input className="form-check-input" type="checkbox" name="condition-certified" value="certified" id="condition-certified" defaultChecked={formValues.condition.includes('certified')} />
+                                                <label className="form-check-label" htmlFor="condition-certified">Certified</label>
                                             </div>
                                         </Card.Body>
                                     </Accordion.Collapse>

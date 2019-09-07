@@ -31,9 +31,18 @@ function App() {
             result: {
                 num_of_results: 0,
                 results: []
-            }
+            },
+            redirect_to: ''
         }
     })
+
+    const updateRedirect = () => {
+        if(state.redirect_to !== '') {
+            const newState = {...state}
+            newState.redirect_to = ''
+            setState(newState)
+        }
+    }
 
     const onSelectChange = (e) => {
         const newState = {...state}
@@ -46,11 +55,14 @@ function App() {
 
     const onFormSubmit = e => {
         e.preventDefault()
+
         const newState = {...state}
         
         newState.search.params.zip = e.target.zip.value
-        // ...
+        // ... get & save all values from input elements
         
+
+        newState.redirect_to = <Redirect to='/search' />
         setState(newState)
     }
 
@@ -69,6 +81,7 @@ function App() {
         <Router>
             <Navbar />
 
+                {state.redirect_to}
 
                 <Switch>
                     <Route exact path="/" component={() => 
@@ -78,9 +91,16 @@ function App() {
                             checkNumValue={checkNumValue}
                             onSelectChange={onSelectChange}
                             onFormSubmit={onFormSubmit}
+                            updateRedirect={updateRedirect}
                         />
                     } />
-                    <Route exact path="/results" component={() => <Results carMakes={state.carMakes} checkNumValue={checkNumValue} />} />
+                    <Route exact path="/search" component={() => 
+                        <Results 
+                            carMakes={state.carMakes}
+                            formValues={state.search.params}
+                            checkNumValue={checkNumValue}
+                        />
+                    } />
                     <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />
                 </Switch>
 
