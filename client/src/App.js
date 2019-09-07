@@ -45,23 +45,21 @@ function App() {
     }
 
     const onSelectChange = (e) => {
+        e.preventDefault()
         const newState = {...state}
 
-        if(e.target.name === 'make' || e.target.name === 'condition') newState.search.params[e.target.name] = e.target.value ? [e.target.value] : []
-        else newState.search.params[e.target.name] = e.target.value
+        // if(e.target.name === 'make' || e.target.name === 'condition')
+         newState.search.params[e.target.name] = e.target.value ? [e.target.value] : []
+        // else newState.search.params[e.target.name] = e.target.value
 
         setState(newState)
     }
 
     const onFormSubmit = e => {
         e.preventDefault()
-
         const newState = {...state}
-        
         newState.search.params.zip = e.target.zip.value
         // ... get & save all values from input elements
-        
-
         newState.redirect_to = <Redirect to='/search' />
         setState(newState)
     }
@@ -99,6 +97,7 @@ function App() {
                             carMakes={state.carMakes}
                             formValues={state.search.params}
                             checkNumValue={checkNumValue}
+                            onSelectChange={onSelectChange}
                         />
                     } />
                     <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />

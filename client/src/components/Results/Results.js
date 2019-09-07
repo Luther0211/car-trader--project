@@ -4,6 +4,17 @@ import './Results.scss'
 import { Accordion, Card, Form} from 'react-bootstrap'
 
 const Results = ({carMakes, formValues, checkNumValue }) => {
+    const params = {...formValues }
+
+    const onChange = e => {
+        params[e.target.name] = e.target.value
+        console.log(params)
+    }
+    const onCheckboxChange = e => {
+        if(params[e.target.name].includes(e.target.value)) params[e.target.name] = params[e.target.name].filter(val => val !== e.target.value)
+        else params[e.target.name].push(e.target.value)
+        console.log(params)
+    }
 
     const car_year = []
     for(let i = 2019; i >=1900; i--) {
@@ -60,7 +71,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                         <Card.Body>
                                             <div className="form-group">
                                                 <label htmlFor="input-radius"> <strong>Radius</strong> </label>
-                                                <select className="form-control" id="input-radius" name="form-value--radius">
+                                                <select className="form-control" id="input-radius" name="radius" defaultValue={params.radius} onChange={(e) => onChange(e)}>
                                                     <option value='' >Any</option>
                                                     <option value='10' >10 Miles</option>
                                                     <option value='25' >25 Miles</option>
@@ -72,7 +83,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="input-zip"> <strong>ZIP Code</strong> </label>
-                                                <input className="form-control" id="input-zip" name="zip" type="text" defaultValue={formValues.zip} maxLength="5" onInput={(e) => checkNumValue(e)} />
+                                                <input className="form-control" id="input-zip" name="zip" type="text" defaultValue={params.zip}minLength='5' maxLength="5" onChange={(e => onChange(e))} onInput={(e) => checkNumValue(e)} />
                                             </div>
                                         </Card.Body>
                                     </Accordion.Collapse>
@@ -86,11 +97,11 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                         <Card.Body>
                                         <div className="form-group">
                                             <label htmlFor="input-min-price"> <strong>Min Price</strong> </label>
-                                            <input className="form-control" id="input-min-price" name="form-value--min-price" type="text" maxLength="7" onInput={(e) => checkNumValue(e)} />
+                                            <input className="form-control" id="min_price" name="min_price" type="text" maxLength="7" onChange={(e) => onChange(e)} onInput={(e) => checkNumValue(e)} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="input-max-price"> <strong>Max Price</strong> </label>
-                                            <input className="form-control" id="input-max-price" name="form-value--max-price" type="text" maxLength="7" onInput={(e) => checkNumValue(e)} />
+                                            <input className="form-control" id="max_price" name="max_price" type="text" maxLength="7" onChange={(e) => onChange(e)} onInput={(e) => checkNumValue(e)} />
                                         </div>
                                         </Card.Body>
                                     </Accordion.Collapse>
@@ -103,15 +114,15 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                     <Accordion.Collapse eventKey="2">
                                         <Card.Body>
                                             <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" name="condition-new" value="new" id="condition-new" defaultChecked={formValues.condition.includes('new')} />
+                                                <input className="form-check-input" type="checkbox" name="condition" value="new" id="condition-new" defaultChecked={params.condition.includes('new')} onChange={(e) => onCheckboxChange(e)}/>
                                                 <label className="form-check-label" htmlFor="condition-new">New</label>
                                             </div>
                                             <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" name="condition-used" value="used" id="condition-used" defaultChecked={formValues.condition.includes('used')} />
+                                                <input className="form-check-input" type="checkbox" name="condition" value="used" id="condition-used" defaultChecked={params.condition.includes('used')} onChange={(e) => onCheckboxChange(e)}/>
                                                 <label className="form-check-label" htmlFor="condition-used">Used</label>
                                             </div>
                                             <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" name="condition-certified" value="certified" id="condition-certified" defaultChecked={formValues.condition.includes('certified')} />
+                                                <input className="form-check-input" type="checkbox" name="condition" value="certified" id="condition-certified" defaultChecked={params.condition.includes('certified')} onChange={(e) => onCheckboxChange(e)}/>
                                                 <label className="form-check-label" htmlFor="condition-certified">Certified</label>
                                             </div>
                                         </Card.Body>
@@ -125,7 +136,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                     <Accordion.Collapse eventKey="3">
                                         <Card.Body>
                                         <div className="form-group">
-                                            <select className="form-control" id="input-year" name="form-value--year" defaultValue="">
+                                            <select className="form-control" id="input-year" name="year" defaultValue={params.year} onChange={(e) => onChange(e)}>
                                                 <option value="">Any</option>
                                                 {car_year}
                                             </select>
@@ -141,7 +152,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                     <Accordion.Collapse eventKey="4">
                                         <Card.Body>
                                             <div className="form-group">
-                                                <select className="form-control" name="form-value--mileage" defaultValue="">
+                                                <select className="form-control" name="mileage" defaultValue={params.mileage} onChange={(e) => onChange(e)}>
                                                     <option value="">Any</option>
                                                     <option value="0-15000">Under 15,000</option>
                                                     <option value="0-30000">Under 30,000</option>
@@ -168,10 +179,12 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                 <Form.Check 
                                                     type='checkbox'
                                                     value={make}
-                                                    name={`form-value-make--${make}`}
+                                                    name='make'
                                                     id={`checkbox-make-${make}`}
                                                     label={make}
                                                     key={make}
+                                                    defaultChecked={formValues.make.includes(make)}
+                                                    onChange={(e) => onCheckboxChange(e)}
                                                 />
                                             ))}
                                         </Card.Body>
@@ -188,10 +201,11 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                 <Form.Check 
                                                     type='checkbox'
                                                     value={bodyType.toLowerCase()}
-                                                    name={`form-value-bodyType--${bodyType.toLowerCase()}`}
+                                                    name="body_style"
                                                     id={`checkbox-bodyType-${bodyType.toLowerCase()}`}
                                                     label={bodyType}
                                                     key={bodyType}
+                                                    onChange={(e) => onCheckboxChange(e)}
                                                 />  
                                             ))}
                                         </Card.Body>
@@ -209,10 +223,11 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                 <Form.Check 
                                                     type='checkbox'
                                                     value={extColor.toLowerCase()}
-                                                    name={`form-value-extColor--${extColor.toLowerCase()}`}
+                                                    name='ext_color'
                                                     id={`checkbox-extColor-${extColor.toLowerCase()}`}
                                                     label={extColor}
                                                     key={extColor}
+                                                    onChange={(e) => onCheckboxChange(e)}
                                                 />  
                                             ))}
                                         </Card.Body>
@@ -230,10 +245,11 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                 <Form.Check 
                                                     type='checkbox'
                                                     value={intColor.toLowerCase()}
-                                                    name={`form-value-intColor--${intColor.toLowerCase()}`}
+                                                    name='int_color'
                                                     id={`checkbox-intColor-${intColor.toLowerCase()}`}
                                                     label={intColor}
                                                     key={intColor}
+                                                    onChange={(e) => onCheckboxChange(e)}
                                                 />  
                                             ))}
                                         </Card.Body>
@@ -249,16 +265,18 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                             <Form.Check 
                                                 type='radio'
                                                 value="automatic"
-                                                name="form-value--transmission"
+                                                name="transmission"
                                                 id='checkbox-transmission-automatic'
                                                 label='Automatic'
+                                                onChange={(e) => onChange(e)}
                                             /> 
                                             <Form.Check 
                                                 type='radio'
                                                 value='manual'
-                                                name="form-value--transmission"
+                                                name="transmission"
                                                 id='checkbox-transmission-manual'
                                                 label='Manual'
+                                                onChange={(e) => onChange(e)}
                                             /> 
                                         </Card.Body>
                                     </Accordion.Collapse>
@@ -273,30 +291,34 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                             <Form.Check 
                                                 type='checkbox'
                                                 value='2'
-                                                name="form-value--doors-2"
+                                                name="doors"
                                                 id='checkbox-doors-2'
                                                 label='2 Doors'
+                                                onChange={(e) => onCheckboxChange(e)}
                                             />
                                             <Form.Check 
                                                 type='checkbox'
                                                 value='3'
-                                                name="form-value--doors-3"
+                                                name="doors"
                                                 id='checkbox-doors-3'
                                                 label='3 Doors'
+                                                onChange={(e) => onCheckboxChange(e)}
                                             />
                                             <Form.Check 
                                                 type='checkbox'
                                                 value='4'
-                                                name="form-value--doors-4"
+                                                name="doors"
                                                 id='checkbox-doors-4'
                                                 label='4 Doors'
+                                                onChange={(e) => onCheckboxChange(e)}
                                             />
                                             <Form.Check 
                                                 type='checkbox'
                                                 value='5'
-                                                name="form-value--doors-5"
+                                                name="doors"
                                                 id='checkbox-doors-5'
                                                 label='5 Doors'
+                                                onChange={(e) => onCheckboxChange(e)}
                                             />
                                         </Card.Body>
                                     </Accordion.Collapse>
