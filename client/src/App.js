@@ -18,7 +18,7 @@ function App() {
                 radius: '',
                 min_price: '',
                 max_price: '',
-                condition: [],
+                condition: '',
                 year: '',
                 mileage: '',
                 make: [],
@@ -26,15 +26,20 @@ function App() {
                 ext_color: [],
                 int_color: [],
                 transmission: '',
-                doors: []
+                doors: [],
+                start: 0,
+                rows: 25
             },
             result: {
                 num_of_results: 0,
                 results: []
             },
             redirect_to: ''
-        }
+        },
+        loading: false
     })
+
+    const params = {...state.search.params}
 
     const updateRedirect = () => {
         if(state.redirect_to !== '') {
@@ -44,28 +49,51 @@ function App() {
         }
     }
 
-    const onSelectChange = (e) => {
-        e.preventDefault()
-        const newState = {...state}
-
-        // if(e.target.name === 'make' || e.target.name === 'condition')
-         newState.search.params[e.target.name] = e.target.value ? [e.target.value] : []
-        // else newState.search.params[e.target.name] = e.target.value
-
-        setState(newState)
-    }
-
-    const onFormSubmit = e => {
-        e.preventDefault()
-        const newState = {...state}
-        newState.search.params.zip = e.target.zip.value
-        // ... get & save all values from input elements
-        newState.redirect_to = <Redirect to='/search' />
-        setState(newState)
-    }
-
     const checkNumValue = e => {
         e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
+    }
+
+    const onHomeFormChange = (e) => {
+        if (e.target.name === 'make') params[e.target.name] = e.target.value ? [e.target.value] : []
+        else params[e.target.name] = e.target.value
+        console.log(params)
+    }
+
+    const onFormSubmit = (e) => {
+        e.preventDefault()
+
+        const newState = {...state}
+        const queryParams = []
+
+        newState.search.params = params
+
+        if(params.zip) queryParams.push(`zip=${params.zip}`)
+        if(params.radius) queryParams.push(`radius=${params.radius}`)
+        
+        if(params.min_price || params.max_price) {
+            const priceRange = [0, 999999]
+            if(params.min_price) priceRange[0] = params.min_price
+            if(params.max_price) priceRange[1] = params.max_price
+            queryParams.push(`price_range=${priceRange.join('-')}`)
+        }
+
+        if(params.condition) queryParams.push(`car_type=${params.condition}`)
+        if(params.year) queryParams.push(`year=${params.year}`)
+        if(params.mileage) queryParams.push(`miles_range=${params.mileage}`)
+
+        if(params.make.length > 0) queryParams.push(`make=${params.make.join(',')}`)
+        if(params.body_style.length > 0) queryParams.push(`body_type=${params.body_style.join(',')}`)
+        if(params.ext_color.length > 0) queryParams.push(`exterior_color=${params.ext_color.join(',')}`)
+        if(params.int_color.length > 0) queryParams.push(`interior_color=${params.int_color.join(',')}`)
+        if(params.transmission) queryParams.push(`transmission=${params.transmission}`)
+        if(params.doors.length > 0) queryParams.push(`doors=${params.doors.join(',')}`)
+
+        queryParams.push(`start=${params.start}`)
+        queryParams.push(`rows=${params.rows}`)
+
+        console.log( `/api/?${queryParams.join('&')}` )
+        // ...fetch data
+
     }
 
     // const apiTest = () => {
@@ -85,11 +113,10 @@ function App() {
                     <Route exact path="/" component={() => 
                         <Home 
                             carMakes={state.carMakes}
-                            formValues={state.search.params}
                             checkNumValue={checkNumValue}
-                            onSelectChange={onSelectChange}
-                            onFormSubmit={onFormSubmit}
                             updateRedirect={updateRedirect}
+                            onHomeFormChange={onHomeFormChange}
+                            onFormSubmit={onFormSubmit}
                         />
                     } />
                     <Route exact path="/search" component={() => 
@@ -97,7 +124,6 @@ function App() {
                             carMakes={state.carMakes}
                             formValues={state.search.params}
                             checkNumValue={checkNumValue}
-                            onSelectChange={onSelectChange}
                         />
                     } />
                     <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />

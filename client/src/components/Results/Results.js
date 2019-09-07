@@ -97,11 +97,11 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                         <Card.Body>
                                         <div className="form-group">
                                             <label htmlFor="input-min-price"> <strong>Min Price</strong> </label>
-                                            <input className="form-control" id="min_price" name="min_price" type="text" maxLength="7" onChange={(e) => onChange(e)} onInput={(e) => checkNumValue(e)} />
+                                            <input className="form-control" id="min_price" name="min_price" type="text" maxLength="6" onChange={(e) => onChange(e)} onInput={(e) => checkNumValue(e)} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="input-max-price"> <strong>Max Price</strong> </label>
-                                            <input className="form-control" id="max_price" name="max_price" type="text" maxLength="7" onChange={(e) => onChange(e)} onInput={(e) => checkNumValue(e)} />
+                                            <input className="form-control" id="max_price" name="max_price" type="text" maxLength="6" onChange={(e) => onChange(e)} onInput={(e) => checkNumValue(e)} />
                                         </div>
                                         </Card.Body>
                                     </Accordion.Collapse>

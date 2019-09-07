@@ -4,7 +4,7 @@ import './Home.scss'
 import CarStyle from '../CarStyle/CarStyle'
 
 
-const Home = ({carMakes, formValues, checkNumValue, onSelectChange, onFormSubmit, updateRedirect }) => {
+const Home = ({carMakes, checkNumValue, updateRedirect, onHomeFormChange, onFormSubmit  }) => {
 
     useEffect(() => {
         updateRedirect()
@@ -23,13 +23,13 @@ const Home = ({carMakes, formValues, checkNumValue, onSelectChange, onFormSubmit
                     <form className="mb-5" onSubmit={(e) => onFormSubmit(e)}>
                         <div className="form-row">
                             <div className="col-12 col-sm-6 col-md-4 mb-2">
-                                <select className="form-control" name="make" defaultValue={formValues.make[0]} onChange={(e) => onSelectChange(e)}>
+                                <select className="form-control" name="make" defaultValue='' onChange={(e) => onHomeFormChange(e)}>
                                     <option value="">Any Make</option>
                                     {carMakes.map(m => <option value={m} key={m}>{m}</option> )}
                                 </select>
                             </div>
                             <div className="col-12 col-sm-6 col-md-3 mb-2">
-                                <select className="form-control" name="condition" defaultValue={formValues.condition[0]} onChange={(e) => onSelectChange(e)}>
+                                <select className="form-control" name="condition" defaultValue='' onChange={(e) => onHomeFormChange(e)}>
                                     <option value="">Any Condition</option>
                                     <option value="new">New</option>
                                     <option value="used">Used</option>
@@ -37,7 +37,7 @@ const Home = ({carMakes, formValues, checkNumValue, onSelectChange, onFormSubmit
                                 </select>
                             </div>
                             <div className="col-12 col-sm-6 col-md-3 mb-2">
-                            <input className="form-control" type="text" defaultValue={formValues.zip} name='zip' placeholder="ZIP Code" minLength="5" maxLength="5" onInput={(e) => checkNumValue(e)} required />
+                            <input className="form-control" type="text" defaultValue='' name='zip' placeholder="ZIP Code" minLength="5" maxLength="5" onChange={(e) => onHomeFormChange(e)} onInput={(e) => checkNumValue(e)} required />
                             </div>
                             <div className="col-12 col-sm-6 col-md-2 mb-2">
                                 <button className="btn btn-info w-100" type="submit">Search</button>
