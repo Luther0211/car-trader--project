@@ -26,7 +26,7 @@ const Results = () => {
                         </div>
 
                         <div className="col-12 col-sm-6 d-flex justify-content-center justify-content-sm-end">
-                            <select className="form-control">
+                            <select className="form-control" name="sort_by">
                                 <option value="relevance">Sort by: Relevance</option>
                                 <option value="price-lowest">Sort by: Price - Lowest</option>
                                 <option value="price-highest">Sort by: Price - Highest</option>
@@ -64,7 +64,7 @@ const Results = () => {
                                         <Card.Body>
                                             <div className="form-group">
                                                 <label htmlFor="input-radius"> <strong>Radius</strong> </label>
-                                                <select className="form-control" id="input-radius">
+                                                <select className="form-control" id="input-radius" name="form-value--radius">
                                                     <option value='' >Any</option>
                                                     <option value='10' >10 Miles</option>
                                                     <option value='25' >25 Miles</option>
@@ -76,7 +76,7 @@ const Results = () => {
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="input-zip"> <strong>ZIP Code</strong> </label>
-                                                <input className="form-control" id="input-zip" type="text" maxLength="5" onInput={(e) => checkNumValue(e)} />
+                                                <input className="form-control" id="input-zip" name="form-value--zip" type="text" maxLength="5" onInput={(e) => checkNumValue(e)} />
                                             </div>
                                         </Card.Body>
                                     </Accordion.Collapse>
@@ -90,11 +90,11 @@ const Results = () => {
                                         <Card.Body>
                                         <div className="form-group">
                                             <label htmlFor="input-min-price"> <strong>Min Price</strong> </label>
-                                            <input className="form-control" id="input-min-price" type="text" maxLength="7" onInput={(e) => checkNumValue(e)} />
+                                            <input className="form-control" id="input-min-price" name="form-value--min-price" type="text" maxLength="7" onInput={(e) => checkNumValue(e)} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="input-max-price"> <strong>Max Price</strong> </label>
-                                            <input className="form-control" id="input-max-price" type="text" maxLength="7" onInput={(e) => checkNumValue(e)} />
+                                            <input className="form-control" id="input-max-price" name="form-value--max-price" type="text" maxLength="7" onInput={(e) => checkNumValue(e)} />
                                         </div>
                                         </Card.Body>
                                     </Accordion.Collapse>
@@ -107,19 +107,19 @@ const Results = () => {
                                     <Accordion.Collapse eventKey="2">
                                         <Card.Body>
                                             <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" value="" id="checkbox-new" />
+                                                <input className="form-check-input" type="checkbox" name="form-value--condition-new" value="New" id="checkbox-new" />
                                                 <label className="form-check-label" htmlFor="checkbox-new">
                                                     New
                                                 </label>
                                             </div>
                                             <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" value="" id="checkbox-used" />
+                                                <input className="form-check-input" type="checkbox" name="form-value--condition-used" value="Used" id="checkbox-used" />
                                                 <label className="form-check-label" htmlFor="checkbox-used">
                                                     Used
                                                 </label>
                                             </div>
                                             <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" value="" id="checkbox-certified" />
+                                                <input className="form-check-input" type="checkbox" name="form-value--condition-certified" value="Certified" id="checkbox-certified" />
                                                 <label className="form-check-label" htmlFor="checkbox-certified">
                                                     Certified
                                                 </label>
@@ -135,7 +135,7 @@ const Results = () => {
                                     <Accordion.Collapse eventKey="3">
                                         <Card.Body>
                                         <div className="form-group">
-                                            <select className="form-control" id="input-year" defaultValue="">
+                                            <select className="form-control" id="input-year" name="form-value--year" defaultValue="">
                                                 <option value="">Any</option>
                                                 {car_year}
                                             </select>
@@ -151,7 +151,7 @@ const Results = () => {
                                     <Accordion.Collapse eventKey="4">
                                         <Card.Body>
                                             <div className="form-group">
-                                                <select className="form-control">
+                                                <select className="form-control" name="form-value--mileage" defaultValue="">
                                                     <option value="">Any</option>
                                                     <option value="0-15000">Under 15,000</option>
                                                     <option value="0-30000">Under 30,000</option>
@@ -182,6 +182,8 @@ const Results = () => {
                                         'Saturn', 'Scion', 'smart', 'SRT', 'Subaru', 'Suzuki', 'Tesla', 'Toyota', 'Volkswagen', 'Volvo', 'Yugo'].map(make => (
                                             <Form.Check 
                                                 type='checkbox'
+                                                value={make}
+                                                name={`form-value-make--${make}`}
                                                 id={`checkbox-make-${make}`}
                                                 label={make}
                                                 key={make}
@@ -201,6 +203,8 @@ const Results = () => {
                                             {['SUV', 'Sedan', 'Pickup', 'Hatchback', 'Coupe', 'Wagon'].map(bodyType => (
                                                 <Form.Check 
                                                     type='checkbox'
+                                                    value={bodyType.toLowerCase()}
+                                                    name={`form-value-bodyType--${bodyType.toLowerCase()}`}
                                                     id={`checkbox-bodyType-${bodyType.toLowerCase()}`}
                                                     label={bodyType}
                                                     key={bodyType}
@@ -220,6 +224,8 @@ const Results = () => {
                                             'Turquoise', 'Yellow'].map(extColor => (
                                                 <Form.Check 
                                                     type='checkbox'
+                                                    value={extColor.toLowerCase()}
+                                                    name={`form-value-extColor--${extColor.toLowerCase()}`}
                                                     id={`checkbox-extColor-${extColor.toLowerCase()}`}
                                                     label={extColor}
                                                     key={extColor}
@@ -239,6 +245,8 @@ const Results = () => {
                                             'Turquoise', 'Yellow'].map(intColor => (
                                                 <Form.Check 
                                                     type='checkbox'
+                                                    value={intColor.toLowerCase()}
+                                                    name={`form-value-intColor--${intColor.toLowerCase()}`}
                                                     id={`checkbox-intColor-${intColor.toLowerCase()}`}
                                                     label={intColor}
                                                     key={intColor}
@@ -254,7 +262,20 @@ const Results = () => {
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="9">
                                         <Card.Body>
-
+                                            <Form.Check 
+                                                type='radio'
+                                                value="automatic"
+                                                name="form-value--transmission"
+                                                id='checkbox-transmission-automatic'
+                                                label='Automatic'
+                                            /> 
+                                            <Form.Check 
+                                                type='radio'
+                                                value='manual'
+                                                name="form-value--transmission"
+                                                id='checkbox-transmission-manual'
+                                                label='Manual'
+                                            /> 
                                         </Card.Body>
                                     </Accordion.Collapse>
                                 </Card>
@@ -265,18 +286,34 @@ const Results = () => {
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="10">
                                         <Card.Body>
-                                            
-                                        </Card.Body>
-                                    </Accordion.Collapse>
-                                </Card>
-
-                                <Card>
-                                    <Accordion.Toggle as={Card.Header} eventKey="11">
-                                        <strong className="text-info">Seller Type</strong>
-                                    </Accordion.Toggle>
-                                    <Accordion.Collapse eventKey="11">
-                                        <Card.Body>
-
+                                            <Form.Check 
+                                                type='checkbox'
+                                                value='2'
+                                                name="form-value--doors-2"
+                                                id='checkbox-doors-2'
+                                                label='2 Doors'
+                                            />
+                                            <Form.Check 
+                                                type='checkbox'
+                                                value='3'
+                                                name="form-value--doors-3"
+                                                id='checkbox-doors-3'
+                                                label='3 Doors'
+                                            />
+                                            <Form.Check 
+                                                type='checkbox'
+                                                value='4'
+                                                name="form-value--doors-4"
+                                                id='checkbox-doors-4'
+                                                label='4 Doors'
+                                            />
+                                            <Form.Check 
+                                                type='checkbox'
+                                                value='5'
+                                                name="form-value--doors-5"
+                                                id='checkbox-doors-5'
+                                                label='5 Doors'
+                                            />
                                         </Card.Body>
                                     </Accordion.Collapse>
                                 </Card>
