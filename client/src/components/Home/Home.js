@@ -4,7 +4,7 @@ import './Home.scss'
 import CarStyle from '../CarStyle/CarStyle'
 
 
-const Home = ({carMakes, formValues, checkNumValue, onSelectChange }) => {
+const Home = ({carMakes, formValues, checkNumValue, onSelectChange, onFormSubmit }) => {
     
     return (
         <div className="Home">
@@ -16,16 +16,16 @@ const Home = ({carMakes, formValues, checkNumValue, onSelectChange }) => {
                     
                     <hr className="mt-4 mb-5 border-light" />
                     
-                    <form className="mb-5">
+                    <form className="mb-5" onSubmit={(e) => onFormSubmit(e)}>
                         <div className="form-row">
                             <div className="col-12 col-sm-6 col-md-4 mb-2">
-                                <select className="form-control" name="make" defaultValue={formValues.make} onChange={(e) => onSelectChange(e)}>
+                                <select className="form-control" name="make" defaultValue={formValues.make[0]} onChange={(e) => onSelectChange(e)}>
                                     <option value="">Any Make</option>
                                     {carMakes.map(m => <option value={m} key={m}>{m}</option> )}
                                 </select>
                             </div>
                             <div className="col-12 col-sm-6 col-md-3 mb-2">
-                                <select className="form-control" name="condition" defaultValue={formValues.condition} onChange={(e) => onSelectChange(e)}>
+                                <select className="form-control" name="condition" defaultValue={formValues.condition[0]} onChange={(e) => onSelectChange(e)}>
                                     <option value="">Any Condition</option>
                                     <option value="new">New</option>
                                     <option value="used">Used</option>
@@ -33,7 +33,7 @@ const Home = ({carMakes, formValues, checkNumValue, onSelectChange }) => {
                                 </select>
                             </div>
                             <div className="col-12 col-sm-6 col-md-3 mb-2">
-                            <input className="form-control" type="text" placeholder="ZIP Code" maxLength="5" onInput={(e) => checkNumValue(e)} />
+                            <input className="form-control" type="text" defaultValue={formValues.zip} name='zip' placeholder="ZIP Code" maxLength="5" onInput={(e) => checkNumValue(e)} />
                             </div>
                             <div className="col-12 col-sm-6 col-md-2 mb-2">
                                 <button className="btn btn-info w-100" type="submit">Search</button>

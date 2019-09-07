@@ -44,6 +44,16 @@ function App() {
         setState(newState)
     }
 
+    const onFormSubmit = e => {
+        e.preventDefault()
+        const newState = {...state}
+        
+        newState.search.params.zip = e.target.zip.value
+        // ...
+        
+        setState(newState)
+    }
+
     const checkNumValue = e => {
         e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
     }
@@ -61,12 +71,15 @@ function App() {
 
 
                 <Switch>
-                    <Route exact path="/" component={() => <Home 
-                        carMakes={state.carMakes}
-                        formValues={state.search.params}
-                        checkNumValue={checkNumValue}
-                        onSelectChange={onSelectChange}
-                    />} />
+                    <Route exact path="/" component={() => 
+                        <Home 
+                            carMakes={state.carMakes}
+                            formValues={state.search.params}
+                            checkNumValue={checkNumValue}
+                            onSelectChange={onSelectChange}
+                            onFormSubmit={onFormSubmit}
+                        />
+                    } />
                     <Route exact path="/results" component={() => <Results carMakes={state.carMakes} checkNumValue={checkNumValue} />} />
                     <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />
                 </Switch>
