@@ -11,16 +11,48 @@ import Footer from './components/Footer/Footer';
 
 function App() {
     const [state, setState] = useState({
-        data: []
+        carMakes: ['Acura','Alfa Romeo', 'AMC', 'Aston Martin', 'Audi', 'Bentley', 'BMW', 'Bugatti', 'Buick', 'Cadillac', 'Chevrolet', 'Chrysler', 'Daewoo', 'Datsun', 'DeLorean', 'Dodge', 'Eagle', 'Ferrari', 'FIAT', 'Fisker', 'Ford', 'Freightliner', 'Genesis', 'Geo', 'GMC', 'Honda', 'HUMMER', 'Hyundai', 'INFINITI', 'Isuzu', 'Jaguar', 'Jeep', 'Karma', 'Kia', 'Lamborghini', 'Land Rover', 'Lexus', 'Lincoln', 'Lotus', 'Maserati', 'Maybach', 'MAZDA', 'McLaren', 'Mercedes-Benz', 'Mercury', 'MINI', 'Mitsubishi', 'Nissan', 'Oldsmobile', 'Plymouth', 'Pontiac', 'Porsche', 'RAM', 'Rolls-Royce', 'Saab', 'Saturn', 'Scion', 'smart', 'SRT', 'Subaru', 'Suzuki', 'Tesla', 'Toyota', 'Volkswagen', 'Volvo', 'Yugo'],
+        search: {
+            params: {
+                zip: '',
+                radius: '',
+                min_price: '',
+                max_price: '',
+                condition: [],
+                year: '',
+                mileage: '',
+                make: [],
+                body_style: [],
+                ext_color: [],
+                int_color: [],
+                transmission: '',
+                doors: []
+            },
+            result: {
+                num_of_results: 0,
+                results: []
+            }
+        }
     })
 
-  
+    const onSelectChange = (e) => {
+        const newState = {...state}
 
-    const apiTest = () => {
-        fetch('/api')
-            .then(res => res.json())
-            .then(data => setState({data: [...data]}))        
+        if(e.target.name === 'make' || e.target.name === 'condition') newState.search.params[e.target.name] = e.target.value ? [e.target.value] : []
+        else newState.search.params[e.target.name] = e.target.value
+
+        setState(newState)
     }
+
+    const checkNumValue = e => {
+        e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
+    }
+
+    // const apiTest = () => {
+    //     fetch('/api')
+    //         .then(res => res.json())
+    //         .then(data => setState({data: [...data]}))        
+    // }
     
   return (
     <div className="App">
@@ -29,20 +61,25 @@ function App() {
 
 
                 <Switch>
-                    <Route exact path="/" component={() => <Home />} />
-                    <Route exact path="/results" component={() => <Results />} />
+                    <Route exact path="/" component={() => <Home 
+                        carMakes={state.carMakes}
+                        formValues={state.search.params}
+                        checkNumValue={checkNumValue}
+                        onSelectChange={onSelectChange}
+                    />} />
+                    <Route exact path="/results" component={() => <Results carMakes={state.carMakes} checkNumValue={checkNumValue} />} />
                     <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />
                 </Switch>
 
         
         
 
-        
+{/*         
             <button onClick={apiTest}>Search</button>
 
             {state.data.map((elem, i) => {
                 return <p>POST #{i+1}: {elem.title}</p>
-            })}
+            })} */}
 
             <Footer />
         </Router>

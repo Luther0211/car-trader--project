@@ -3,16 +3,12 @@ import './Results.scss'
 
 import { Accordion, Card, Form} from 'react-bootstrap'
 
-const Results = () => {
-    const checkNumValue = e => {
-        e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
-    }
-    
+const Results = ({carMakes, checkNumValue }) => {
+
     const car_year = []
     for(let i = 2019; i >=1900; i--) {
         car_year.push(<option value={i} key={`car__year-${i}`}>{i}</option>)
     }
-
     return (
         <div className="Results">
             <div className="Results__bar shadow-sm">
@@ -53,7 +49,7 @@ const Results = () => {
                     <div className="Results__form border border-info">
                         <h4 className="text-center bg-info text-light py-2 m-0">Filter</h4>
 
-                        <form>     
+                        <form >     
                             <Accordion defaultActiveKey="0">
                                 
                                 <Card>
@@ -174,22 +170,16 @@ const Results = () => {
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="5">
                                         <Card.Body>
-                                            {
-                                        ['Acura','Alfa Romeo', 'AMC', 'Aston Martin', 'Audi', 'Bentley', 'BMW', 'Bugatti', 'Buick', 'Cadillac', 'Chevrolet', 'Chrysler', 'Daewoo',
-                                        'Datsun', 'DeLorean', 'Dodge', 'Eagle', 'Ferrari', 'FIAT', 'Fisker', 'Ford', 'Freightliner', 'Genesis', 'Geo', 'GMC', 'Honda', 'HUMMER', 'Hyundai',
-                                        'INFINITI', 'Isuzu', 'Jaguar', 'Jeep', 'Karma', 'Kia', 'Lamborghini', 'Land Rover', 'Lexus', 'Lincoln', 'Lotus', 'Maserati', 'Maybach', 'MAZDA',
-                                        'McLaren', 'Mercedes-Benz', 'Mercury', 'MINI', 'Mitsubishi', 'Nissan', 'Oldsmobile', 'Plymouth', 'Pontiac', 'Porsche', 'RAM', 'Rolls-Royce', 'Saab',
-                                        'Saturn', 'Scion', 'smart', 'SRT', 'Subaru', 'Suzuki', 'Tesla', 'Toyota', 'Volkswagen', 'Volvo', 'Yugo'].map(make => (
-                                            <Form.Check 
-                                                type='checkbox'
-                                                value={make}
-                                                name={`form-value-make--${make}`}
-                                                id={`checkbox-make-${make}`}
-                                                label={make}
-                                                key={make}
-                                            />
-                                        ))
-                                        }
+                                            {carMakes.map(make => (
+                                                <Form.Check 
+                                                    type='checkbox'
+                                                    value={make}
+                                                    name={`form-value-make--${make}`}
+                                                    id={`checkbox-make-${make}`}
+                                                    label={make}
+                                                    key={make}
+                                                />
+                                            ))}
                                         </Card.Body>
                                     </Accordion.Collapse>
                                 </Card>

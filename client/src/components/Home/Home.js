@@ -4,12 +4,8 @@ import './Home.scss'
 import CarStyle from '../CarStyle/CarStyle'
 
 
-const Home = () => {
-
-    const checkNumValue = e => {
-        e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
-    }
-
+const Home = ({carMakes, formValues, checkNumValue, onSelectChange }) => {
+    
     return (
         <div className="Home">
             <div className="Home__main-section jumbotron rounded-0">
@@ -23,13 +19,14 @@ const Home = () => {
                     <form className="mb-5">
                         <div className="form-row">
                             <div className="col-12 col-sm-6 col-md-4 mb-2">
-                                <select className="form-control" defaultValue="any">
-                                    <option value="any">Any Make</option>
+                                <select className="form-control" name="make" defaultValue={formValues.make} onChange={(e) => onSelectChange(e)}>
+                                    <option value="">Any Make</option>
+                                    {carMakes.map(m => <option value={m} key={m}>{m}</option> )}
                                 </select>
                             </div>
                             <div className="col-12 col-sm-6 col-md-3 mb-2">
-                                <select className="form-control">
-                                    <option value="any">Any Condition</option>
+                                <select className="form-control" name="condition" defaultValue={formValues.condition} onChange={(e) => onSelectChange(e)}>
+                                    <option value="">Any Condition</option>
                                     <option value="new">New</option>
                                     <option value="used">Used</option>
                                     <option value="certified">Certified</option>
