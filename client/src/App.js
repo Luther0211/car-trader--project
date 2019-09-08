@@ -53,8 +53,18 @@ function App() {
         e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1')
     }
 
-    const onHomeFormChange = (e) => {
-        if (e.target.name === 'make') params[e.target.name] = e.target.value ? [e.target.value] : []
+    const onFormChange = (e) => {
+        if (e.target.name === 'home-make') params.make = e.target.value ? [e.target.value] : []
+        else if (
+            e.target.name === 'make' || 
+            e.target.name === 'body_style' || 
+            e.target.name === 'ext_color' || 
+            e.target.name === 'int_color' || 
+            e.target.name === 'doors'
+        ) {
+            if(params[e.target.name].includes(e.target.value)) params[e.target.name] = params[e.target.name].filter(elem => elem !== e.target.value)
+            else params[e.target.name].push(e.target.value)
+        }
         else params[e.target.name] = e.target.value
         console.log(params)
     }
@@ -92,8 +102,11 @@ function App() {
         queryParams.push(`rows=${params.rows}`)
 
         console.log( `/api/?${queryParams.join('&')}` )
-        // ...fetch data
 
+        // ...fetch data
+        
+        newState.redirect_to = <Redirect to='/search' />
+        setState(newState)
     }
 
     // const apiTest = () => {
@@ -115,7 +128,7 @@ function App() {
                             carMakes={state.carMakes}
                             checkNumValue={checkNumValue}
                             updateRedirect={updateRedirect}
-                            onHomeFormChange={onHomeFormChange}
+                            onFormChange={onFormChange}
                             onFormSubmit={onFormSubmit}
                         />
                     } />
@@ -124,6 +137,7 @@ function App() {
                             carMakes={state.carMakes}
                             formValues={state.search.params}
                             checkNumValue={checkNumValue}
+                            onFormChange={onFormChange}
                         />
                     } />
                     <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />

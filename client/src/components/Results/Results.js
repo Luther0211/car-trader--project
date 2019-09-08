@@ -3,18 +3,18 @@ import './Results.scss'
 
 import { Accordion, Card, Form} from 'react-bootstrap'
 
-const Results = ({carMakes, formValues, checkNumValue }) => {
+const Results = ({carMakes, formValues, checkNumValue, onFormChange }) => {
     const params = {...formValues }
 
-    const onChange = e => {
-        params[e.target.name] = e.target.value
-        console.log(params)
-    }
-    const onCheckboxChange = e => {
-        if(params[e.target.name].includes(e.target.value)) params[e.target.name] = params[e.target.name].filter(val => val !== e.target.value)
-        else params[e.target.name].push(e.target.value)
-        console.log(params)
-    }
+    // const onChange = e => {
+    //     params[e.target.name] = e.target.value
+    //     console.log(params)
+    // }
+    // const onCheckboxChange = e => {
+    //     if(params[e.target.name].includes(e.target.value)) params[e.target.name] = params[e.target.name].filter(val => val !== e.target.value)
+    //     else params[e.target.name].push(e.target.value)
+    //     console.log(params)
+    // }
 
     const car_year = []
     for(let i = 2019; i >=1900; i--) {
@@ -71,7 +71,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                         <Card.Body>
                                             <div className="form-group">
                                                 <label htmlFor="input-radius"> <strong>Radius</strong> </label>
-                                                <select className="form-control" id="input-radius" name="radius" defaultValue={params.radius} onChange={(e) => onChange(e)}>
+                                                <select className="form-control" id="input-radius" name="radius" defaultValue={params.radius} onChange={(e) => onFormChange(e)}>
                                                     <option value='' >Any</option>
                                                     <option value='10' >10 Miles</option>
                                                     <option value='25' >25 Miles</option>
@@ -83,7 +83,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="input-zip"> <strong>ZIP Code</strong> </label>
-                                                <input className="form-control" id="input-zip" name="zip" type="text" defaultValue={params.zip}minLength='5' maxLength="5" onChange={(e => onChange(e))} onInput={(e) => checkNumValue(e)} />
+                                                <input className="form-control" id="input-zip" name="zip" type="text" defaultValue={params.zip}minLength='5' maxLength="5" onChange={(e => onFormChange(e))} onInput={(e) => checkNumValue(e)} />
                                             </div>
                                         </Card.Body>
                                     </Accordion.Collapse>
@@ -97,11 +97,11 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                         <Card.Body>
                                         <div className="form-group">
                                             <label htmlFor="input-min-price"> <strong>Min Price</strong> </label>
-                                            <input className="form-control" id="min_price" name="min_price" type="text" maxLength="6" onChange={(e) => onChange(e)} onInput={(e) => checkNumValue(e)} />
+                                            <input className="form-control" id="min_price" name="min_price" type="text" defaultValue={params.min__price} maxLength="6" onChange={(e) => onFormChange(e)} onInput={(e) => checkNumValue(e)} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="input-max-price"> <strong>Max Price</strong> </label>
-                                            <input className="form-control" id="max_price" name="max_price" type="text" maxLength="6" onChange={(e) => onChange(e)} onInput={(e) => checkNumValue(e)} />
+                                            <input className="form-control" id="max_price" name="max_price" type="text" defaultValue={params.max__price} maxLength="6" onChange={(e) => onFormChange(e)} onInput={(e) => checkNumValue(e)} />
                                         </div>
                                         </Card.Body>
                                     </Accordion.Collapse>
@@ -113,18 +113,33 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey="2">
                                         <Card.Body>
-                                            <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" name="condition" value="new" id="condition-new" defaultChecked={params.condition.includes('new')} onChange={(e) => onCheckboxChange(e)}/>
-                                                <label className="form-check-label" htmlFor="condition-new">New</label>
-                                            </div>
-                                            <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" name="condition" value="used" id="condition-used" defaultChecked={params.condition.includes('used')} onChange={(e) => onCheckboxChange(e)}/>
-                                                <label className="form-check-label" htmlFor="condition-used">Used</label>
-                                            </div>
-                                            <div className="form-check">
-                                                <input className="form-check-input" type="checkbox" name="condition" value="certified" id="condition-certified" defaultChecked={params.condition.includes('certified')} onChange={(e) => onCheckboxChange(e)}/>
-                                                <label className="form-check-label" htmlFor="condition-certified">Certified</label>
-                                            </div>
+                                            <Form.Check 
+                                                type='radio'
+                                                value="new"
+                                                name="condition"
+                                                id='condition-new'
+                                                label='New'
+                                                onChange={(e) => onFormChange(e)}
+                                                defaultChecked={params.condition === 'new'}
+                                            />
+                                            <Form.Check 
+                                                type='radio'
+                                                value="used"
+                                                name="condition"
+                                                id='condition-used'
+                                                label='Used'
+                                                onChange={(e) => onFormChange(e)}
+                                                defaultChecked={params.condition === 'used'}
+                                            />
+                                            <Form.Check 
+                                                type='radio'
+                                                value="certified"
+                                                name="condition"
+                                                id='condition-certified'
+                                                label='Certified'
+                                                onChange={(e) => onFormChange(e)}
+                                                defaultChecked={params.condition === 'certified'}
+                                            />
                                         </Card.Body>
                                     </Accordion.Collapse>
                                 </Card>
@@ -136,7 +151,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                     <Accordion.Collapse eventKey="3">
                                         <Card.Body>
                                         <div className="form-group">
-                                            <select className="form-control" id="input-year" name="year" defaultValue={params.year} onChange={(e) => onChange(e)}>
+                                            <select className="form-control" id="input-year" name="year" defaultValue={params.year} onChange={(e) => onFormChange(e)}>
                                                 <option value="">Any</option>
                                                 {car_year}
                                             </select>
@@ -152,7 +167,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                     <Accordion.Collapse eventKey="4">
                                         <Card.Body>
                                             <div className="form-group">
-                                                <select className="form-control" name="mileage" defaultValue={params.mileage} onChange={(e) => onChange(e)}>
+                                                <select className="form-control" name="mileage" defaultValue={params.mileage} onChange={(e) => onFormChange(e)}>
                                                     <option value="">Any</option>
                                                     <option value="0-15000">Under 15,000</option>
                                                     <option value="0-30000">Under 30,000</option>
@@ -184,7 +199,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                     label={make}
                                                     key={make}
                                                     defaultChecked={formValues.make.includes(make)}
-                                                    onChange={(e) => onCheckboxChange(e)}
+                                                    onChange={(e) => onFormChange(e)}
                                                 />
                                             ))}
                                         </Card.Body>
@@ -205,7 +220,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                     id={`checkbox-bodyType-${bodyType.toLowerCase()}`}
                                                     label={bodyType}
                                                     key={bodyType}
-                                                    onChange={(e) => onCheckboxChange(e)}
+                                                    onChange={(e) => onFormChange(e)}
                                                 />  
                                             ))}
                                         </Card.Body>
@@ -227,7 +242,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                     id={`checkbox-extColor-${extColor.toLowerCase()}`}
                                                     label={extColor}
                                                     key={extColor}
-                                                    onChange={(e) => onCheckboxChange(e)}
+                                                    onChange={(e) => onFormChange(e)}
                                                 />  
                                             ))}
                                         </Card.Body>
@@ -249,7 +264,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                     id={`checkbox-intColor-${intColor.toLowerCase()}`}
                                                     label={intColor}
                                                     key={intColor}
-                                                    onChange={(e) => onCheckboxChange(e)}
+                                                    onChange={(e) => onFormChange(e)}
                                                 />  
                                             ))}
                                         </Card.Body>
@@ -268,7 +283,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                 name="transmission"
                                                 id='checkbox-transmission-automatic'
                                                 label='Automatic'
-                                                onChange={(e) => onChange(e)}
+                                                onChange={(e) => onFormChange(e)}
                                             /> 
                                             <Form.Check 
                                                 type='radio'
@@ -276,7 +291,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                 name="transmission"
                                                 id='checkbox-transmission-manual'
                                                 label='Manual'
-                                                onChange={(e) => onChange(e)}
+                                                onChange={(e) => onFormChange(e)}
                                             /> 
                                         </Card.Body>
                                     </Accordion.Collapse>
@@ -294,7 +309,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                 name="doors"
                                                 id='checkbox-doors-2'
                                                 label='2 Doors'
-                                                onChange={(e) => onCheckboxChange(e)}
+                                                onChange={(e) => onFormChange(e)}
                                             />
                                             <Form.Check 
                                                 type='checkbox'
@@ -302,7 +317,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                 name="doors"
                                                 id='checkbox-doors-3'
                                                 label='3 Doors'
-                                                onChange={(e) => onCheckboxChange(e)}
+                                                onChange={(e) => onFormChange(e)}
                                             />
                                             <Form.Check 
                                                 type='checkbox'
@@ -310,7 +325,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                 name="doors"
                                                 id='checkbox-doors-4'
                                                 label='4 Doors'
-                                                onChange={(e) => onCheckboxChange(e)}
+                                                onChange={(e) => onFormChange(e)}
                                             />
                                             <Form.Check 
                                                 type='checkbox'
@@ -318,7 +333,7 @@ const Results = ({carMakes, formValues, checkNumValue }) => {
                                                 name="doors"
                                                 id='checkbox-doors-5'
                                                 label='5 Doors'
-                                                onChange={(e) => onCheckboxChange(e)}
+                                                onChange={(e) => onFormChange(e)}
                                             />
                                         </Card.Body>
                                     </Accordion.Collapse>
