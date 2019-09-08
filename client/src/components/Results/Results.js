@@ -3,18 +3,8 @@ import './Results.scss'
 
 import { Accordion, Card, Form} from 'react-bootstrap'
 
-const Results = ({carMakes, formValues, checkNumValue, onFormChange }) => {
+const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmit }) => {
     const params = {...formValues }
-
-    // const onChange = e => {
-    //     params[e.target.name] = e.target.value
-    //     console.log(params)
-    // }
-    // const onCheckboxChange = e => {
-    //     if(params[e.target.name].includes(e.target.value)) params[e.target.name] = params[e.target.name].filter(val => val !== e.target.value)
-    //     else params[e.target.name].push(e.target.value)
-    //     console.log(params)
-    // }
 
     const car_year = []
     for(let i = 2019; i >=1900; i--) {
@@ -60,7 +50,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange }) => {
                     <div className="Results__form border border-info">
                         <h4 className="text-center bg-info text-light py-2 m-0">Filter</h4>
 
-                        <form >     
+                        <form onSubmit={(e) => onFormSubmit(e)}>     
                             <Accordion defaultActiveKey="0">
                                 
                                 <Card>
@@ -97,11 +87,11 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange }) => {
                                         <Card.Body>
                                         <div className="form-group">
                                             <label htmlFor="input-min-price"> <strong>Min Price</strong> </label>
-                                            <input className="form-control" id="min_price" name="min_price" type="text" defaultValue={params.min__price} maxLength="6" onChange={(e) => onFormChange(e)} onInput={(e) => checkNumValue(e)} />
+                                            <input className="form-control" id="min_price" name="min_price" type="text" defaultValue={params.min_price} maxLength="6" onChange={(e) => onFormChange(e)} onInput={(e) => checkNumValue(e)} />
                                         </div>
                                         <div className="form-group">
                                             <label htmlFor="input-max-price"> <strong>Max Price</strong> </label>
-                                            <input className="form-control" id="max_price" name="max_price" type="text" defaultValue={params.max__price} maxLength="6" onChange={(e) => onFormChange(e)} onInput={(e) => checkNumValue(e)} />
+                                            <input className="form-control" id="max_price" name="max_price" type="text" defaultValue={params.max_price} maxLength="6" onChange={(e) => onFormChange(e)} onInput={(e) => checkNumValue(e)} />
                                         </div>
                                         </Card.Body>
                                     </Accordion.Collapse>
@@ -220,6 +210,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange }) => {
                                                     id={`checkbox-bodyType-${bodyType.toLowerCase()}`}
                                                     label={bodyType}
                                                     key={bodyType}
+                                                    defaultChecked={formValues.body_style.includes(bodyType.toLowerCase())}
                                                     onChange={(e) => onFormChange(e)}
                                                 />  
                                             ))}
@@ -242,6 +233,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange }) => {
                                                     id={`checkbox-extColor-${extColor.toLowerCase()}`}
                                                     label={extColor}
                                                     key={extColor}
+                                                    defaultChecked={formValues.ext_color.includes(extColor.toLowerCase())}
                                                     onChange={(e) => onFormChange(e)}
                                                 />  
                                             ))}
@@ -264,6 +256,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange }) => {
                                                     id={`checkbox-intColor-${intColor.toLowerCase()}`}
                                                     label={intColor}
                                                     key={intColor}
+                                                    defaultChecked={formValues.int_color.includes(intColor.toLowerCase())}
                                                     onChange={(e) => onFormChange(e)}
                                                 />  
                                             ))}
@@ -283,6 +276,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange }) => {
                                                 name="transmission"
                                                 id='checkbox-transmission-automatic'
                                                 label='Automatic'
+                                                defaultChecked={params.transmission === 'automatic'}
                                                 onChange={(e) => onFormChange(e)}
                                             /> 
                                             <Form.Check 
@@ -291,6 +285,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange }) => {
                                                 name="transmission"
                                                 id='checkbox-transmission-manual'
                                                 label='Manual'
+                                                defaultChecked={params.transmission === 'manual'}
                                                 onChange={(e) => onFormChange(e)}
                                             /> 
                                         </Card.Body>
@@ -309,6 +304,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange }) => {
                                                 name="doors"
                                                 id='checkbox-doors-2'
                                                 label='2 Doors'
+                                                defaultChecked={formValues.doors.includes('2')}
                                                 onChange={(e) => onFormChange(e)}
                                             />
                                             <Form.Check 
@@ -317,6 +313,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange }) => {
                                                 name="doors"
                                                 id='checkbox-doors-3'
                                                 label='3 Doors'
+                                                defaultChecked={formValues.doors.includes('3')}
                                                 onChange={(e) => onFormChange(e)}
                                             />
                                             <Form.Check 
@@ -325,6 +322,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange }) => {
                                                 name="doors"
                                                 id='checkbox-doors-4'
                                                 label='4 Doors'
+                                                defaultChecked={formValues.doors.includes('4')}
                                                 onChange={(e) => onFormChange(e)}
                                             />
                                             <Form.Check 
@@ -333,6 +331,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange }) => {
                                                 name="doors"
                                                 id='checkbox-doors-5'
                                                 label='5 Doors'
+                                                defaultChecked={formValues.doors.includes('5')}
                                                 onChange={(e) => onFormChange(e)}
                                             />
                                         </Card.Body>

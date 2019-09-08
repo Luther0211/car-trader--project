@@ -101,7 +101,7 @@ function App() {
         queryParams.push(`start=${params.start}`)
         queryParams.push(`rows=${params.rows}`)
 
-        console.log( `/api/?${queryParams.join('&')}` )
+        console.log( `/api/search?${queryParams.join('&')}` )
 
         // ...fetch data
         
@@ -138,6 +138,7 @@ function App() {
                             formValues={state.search.params}
                             checkNumValue={checkNumValue}
                             onFormChange={onFormChange}
+                            onFormSubmit={onFormSubmit}
                         />
                     } />
                     <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />
