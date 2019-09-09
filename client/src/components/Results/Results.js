@@ -67,33 +67,20 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey="2">
                         <Card.Body>
-                            <Form.Check 
-                                type='radio'
-                                value="new"
-                                name="condition"
-                                id='condition-new'
-                                label='New'
-                                onChange={(e) => onFormChange(e)}
-                                defaultChecked={params.condition === 'new'}
-                            />
-                            <Form.Check 
-                                type='radio'
-                                value="used"
-                                name="condition"
-                                id='condition-used'
-                                label='Used'
-                                onChange={(e) => onFormChange(e)}
-                                defaultChecked={params.condition === 'used'}
-                            />
-                            <Form.Check 
-                                type='radio'
-                                value="certified"
-                                name="condition"
-                                id='condition-certified'
-                                label='Certified'
-                                onChange={(e) => onFormChange(e)}
-                                defaultChecked={params.condition === 'certified'}
-                            />
+                            <div className="form-group form-check mb-1">
+                                <input type="radio" className="form-check-input" name='condition' value='new' onChange={(e) => onFormChange(e)} defaultChecked={params.condition === 'new'}/>
+                                <label className="form-check-label">New</label>
+                            </div>
+
+                            <div className="form-group form-check mb-1">
+                                <input type="radio" className="form-check-input" name='condition' value='used' onChange={(e) => onFormChange(e)} defaultChecked={params.condition === 'used'}/>
+                                <label className="form-check-label">Used</label>
+                            </div>
+
+                            <div className="form-group form-check mb-1">
+                                <input type="radio" className="form-check-input" name='condition' value='certified' onChange={(e) => onFormChange(e)} defaultChecked={params.condition === 'certified'}/>
+                                <label className="form-check-label">Certified</label>
+                            </div>
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -145,16 +132,10 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
                     <Accordion.Collapse eventKey="5">
                         <Card.Body>
                             {carMakes.map(make => (
-                                <Form.Check 
-                                    type='checkbox'
-                                    value={make}
-                                    name='make'
-                                    id={`checkbox-make-${make}`}
-                                    label={make}
-                                    key={make}
-                                    defaultChecked={formValues.make.includes(make)}
-                                    onChange={(e) => onFormChange(e)}
-                                />
+                                <div className="form-group form-check mb-1" key={make}>
+                                    <input type="checkbox" className="form-check-input" name='make' value={make} onChange={(e) => onFormChange(e)} defaultChecked={params.make.includes(make)}/>
+                                    <label className="form-check-label">{make}</label>
+                                </div>
                             ))}
                         </Card.Body>
                     </Accordion.Collapse>
@@ -167,16 +148,10 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
                     <Accordion.Collapse eventKey="6">
                         <Card.Body>
                             {['SUV', 'Sedan', 'Pickup', 'Hatchback', 'Coupe', 'Wagon'].map(bodyType => (
-                                <Form.Check 
-                                    type='checkbox'
-                                    value={bodyType.toLowerCase()}
-                                    name="body_style"
-                                    id={`checkbox-bodyType-${bodyType.toLowerCase()}`}
-                                    label={bodyType}
-                                    key={bodyType}
-                                    defaultChecked={formValues.body_style.includes(bodyType.toLowerCase())}
-                                    onChange={(e) => onFormChange(e)}
-                                />  
+                                <div className="form-group form-check mb-1" key={bodyType}>
+                                    <input type="checkbox" className="form-check-input" name='body_style' value={bodyType.toLowerCase()} onChange={(e) => onFormChange(e)} defaultChecked={params.body_style.includes(bodyType.toLowerCase())}/>
+                                    <label className="form-check-label">{bodyType}</label>
+                                </div>
                             ))}
                         </Card.Body>
                     </Accordion.Collapse>
@@ -190,16 +165,10 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
                         <Card.Body>
                             {['Beige', 'Black', 'Blue', 'Brown', 'Charcoal', 'Gold', 'Gray', 'Green', 'White', 'Orange', 'Pink', 'Purple', 'Red', 'Silver', 'Tan', 
                             'Turquoise', 'Yellow'].map(extColor => (
-                                <Form.Check 
-                                    type='checkbox'
-                                    value={extColor.toLowerCase()}
-                                    name='ext_color'
-                                    id={`checkbox-extColor-${extColor.toLowerCase()}`}
-                                    label={extColor}
-                                    key={extColor}
-                                    defaultChecked={formValues.ext_color.includes(extColor.toLowerCase())}
-                                    onChange={(e) => onFormChange(e)}
-                                />  
+                                <div className="form-group form-check mb-1" key={extColor}>
+                                    <input type="checkbox" className="form-check-input" name='ext_color' value={extColor.toLowerCase()} onChange={(e) => onFormChange(e)} defaultChecked={params.ext_color.includes(extColor.toLowerCase())}/>
+                                    <label className="form-check-label">{extColor}</label>
+                                </div>
                             ))}
                         </Card.Body>
                     </Accordion.Collapse>
@@ -213,16 +182,10 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
                         <Card.Body>
                             {['Beige', 'Black', 'Blue', 'Brown', 'Charcoal', 'Gold', 'Gray', 'Green', 'White', 'Orange', 'Pink', 'Purple', 'Red', 'Silver', 'Tan', 
                             'Turquoise', 'Yellow'].map(intColor => (
-                                <Form.Check 
-                                    type='checkbox'
-                                    value={intColor.toLowerCase()}
-                                    name='int_color'
-                                    id={`checkbox-intColor-${intColor.toLowerCase()}`}
-                                    label={intColor}
-                                    key={intColor}
-                                    defaultChecked={formValues.int_color.includes(intColor.toLowerCase())}
-                                    onChange={(e) => onFormChange(e)}
-                                />  
+                                <div className="form-group form-check mb-1" key={intColor}>
+                                    <input type="checkbox" className="form-check-input" name='int_color' value={intColor.toLowerCase()} onChange={(e) => onFormChange(e)} defaultChecked={params.int_color.includes(intColor.toLowerCase())}/>
+                                    <label className="form-check-label">{intColor}</label>
+                                </div>
                             ))}
                         </Card.Body>
                     </Accordion.Collapse>
@@ -234,24 +197,15 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey="9">
                         <Card.Body>
-                            <Form.Check 
-                                type='radio'
-                                value="automatic"
-                                name="transmission"
-                                id='checkbox-transmission-automatic'
-                                label='Automatic'
-                                defaultChecked={params.transmission === 'automatic'}
-                                onChange={(e) => onFormChange(e)}
-                            /> 
-                            <Form.Check 
-                                type='radio'
-                                value='manual'
-                                name="transmission"
-                                id='checkbox-transmission-manual'
-                                label='Manual'
-                                defaultChecked={params.transmission === 'manual'}
-                                onChange={(e) => onFormChange(e)}
-                            /> 
+                            <div className="form-group form-check mb-1">
+                                <input type="radio" className="form-check-input" name='transmission' value='automatic' onChange={(e) => onFormChange(e)} defaultChecked={params.transmission === 'automatic'}/>
+                                <label className="form-check-label">Automatic</label>
+                            </div>
+
+                            <div className="form-group form-check mb-1">
+                                <input type="radio" className="form-check-input" name='transmission' value='manual' onChange={(e) => onFormChange(e)} defaultChecked={params.transmission === 'manual'}/>
+                                <label className="form-check-label">Manual</label>
+                            </div>
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>
@@ -262,42 +216,24 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
                     </Accordion.Toggle>
                     <Accordion.Collapse eventKey="10">
                         <Card.Body>
-                            <Form.Check 
-                                type='checkbox'
-                                value='2'
-                                name="doors"
-                                id='checkbox-doors-2'
-                                label='2 Doors'
-                                defaultChecked={formValues.doors.includes('2')}
-                                onChange={(e) => onFormChange(e)}
-                            />
-                            <Form.Check 
-                                type='checkbox'
-                                value='3'
-                                name="doors"
-                                id='checkbox-doors-3'
-                                label='3 Doors'
-                                defaultChecked={formValues.doors.includes('3')}
-                                onChange={(e) => onFormChange(e)}
-                            />
-                            <Form.Check 
-                                type='checkbox'
-                                value='4'
-                                name="doors"
-                                id='checkbox-doors-4'
-                                label='4 Doors'
-                                defaultChecked={formValues.doors.includes('4')}
-                                onChange={(e) => onFormChange(e)}
-                            />
-                            <Form.Check 
-                                type='checkbox'
-                                value='5'
-                                name="doors"
-                                id='checkbox-doors-5'
-                                label='5 Doors'
-                                defaultChecked={formValues.doors.includes('5')}
-                                onChange={(e) => onFormChange(e)}
-                            />
+                            <div className="form-group form-check mb-1">
+                                <input type="checkbox" className="form-check-input" name='doors' value='2' onChange={(e) => onFormChange(e)} defaultChecked={params.doors.includes('2')}/>
+                                <label className="form-check-label">2 Doors</label>
+                            </div>
+                            
+                            <div className="form-group form-check mb-1">
+                                <input type="checkbox" className="form-check-input" name='doors' value='3' onChange={(e) => onFormChange(e)} defaultChecked={params.doors.includes('3')}/>
+                                <label className="form-check-label">3 Doors</label>
+                            </div>
+                            <div className="form-group form-check mb-1">
+                                <input type="checkbox" className="form-check-input" name='doors' value='4' onChange={(e) => onFormChange(e)} defaultChecked={params.doors.includes('4')}/>
+                                <label className="form-check-label">4 Doors</label>
+                            </div>
+                            <div className="form-group form-check mb-1">
+                                <input type="checkbox" className="form-check-input" name='doors' value='5' onChange={(e) => onFormChange(e)} defaultChecked={params.doors.includes('5')}/>
+                                <label className="form-check-label">5 Doors</label>
+                            </div>
+
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>

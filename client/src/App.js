@@ -104,6 +104,11 @@ function App() {
         console.log( `/api/search?${queryParams.join('&')}` )
 
         // ...fetch data
+        fetch(`http://localhost:8080/api/search?${queryParams.join('&')}`)
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+            })
         
         newState.redirect_to = <Redirect to='/search' />
         setState(newState)

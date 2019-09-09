@@ -1,10 +1,20 @@
 const express = require('express')
 const path = require('path')
+const Axios = require('axios')
 
 require('dotenv').config()
 
+const API_KEY = process.env.API_KEY
 const PORT = process.env.PORT || 8080
 const app = express();
+
+const API = Axios.create({
+    baseURL: process.env.BASE_URL,
+    headers: {
+        'Host': 'marketcheck-prod.apigee.net',
+        'Content-Type': 'application/json'
+    }
+});
 
 //CORS
 app.use((req, res, next) => {
@@ -15,13 +25,20 @@ app.use((req, res, next) => {
   
 app.use(express.static(path.join(__dirname, 'client', 'build')))
 
-app.get('/api', (req, res) => {
-    res.json([
-        {title: 'listing 1'},
-        {title: 'listing 2'},
-        {title: 'listing 3'},
-        {title: 'listing 4'},
-    ])
+app.get('/api/search', (req, res) => {
+    console.log(req.url)
+    const urlParams = req.url.replace('/api/search?', '')
+    const fetchURL = `/search?api_key=${API_KEY}&${urlParams}`
+
+    API.get(fetchURL)
+        .then(result => {
+            // console.log(result)
+            res.status(result.status).json({result: result.data})
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({err: {msg: 'Internal Server Error', err: err} })
+        })
 })
 
 app.get('*', (req, res) => {
