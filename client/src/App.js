@@ -32,7 +32,7 @@ function App() {
             },
             result: {
                 num_of_results: 0,
-                results: []
+                results: [1,2,3,4,5,6,7,8,9]
             },
             redirect_to: ''
         },
@@ -108,8 +108,9 @@ function App() {
             .then(res => res.json())
             .then(res => {
                 console.log(res)
+                // newState.search.result = res
             })
-        
+            
         newState.redirect_to = <Redirect to='/search' />
         setState(newState)
     }
@@ -144,6 +145,7 @@ function App() {
                             checkNumValue={checkNumValue}
                             onFormChange={onFormChange}
                             onFormSubmit={onFormSubmit}
+                            resultData={state.search.result}
                         />
                     } />
                     <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />
