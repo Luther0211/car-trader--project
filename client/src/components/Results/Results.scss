@@ -19,10 +19,13 @@
         color: var(--info);
     }
 
+    &__filter-btn {
+        position: relative;
+        display: inline-block;
+    }
+
     &__form {
-        // height: 800px;
         &-btn {
-            // background-color: #61C5D3
             font-weight: 500;
         }
     }
