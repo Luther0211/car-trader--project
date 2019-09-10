@@ -4,6 +4,10 @@ import './ResItem.scss'
 
 const ResItem = ({ data }) => {
     let main_photo = 'https://www.texastechnologies.com/wp-content/uploads/2016/10/product_i_m_img_not_available_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1.png'
+    let transmission = ''
+    if(data.build){
+        if (data.build.transmission) transmission = data.build.transmission
+    }
 
     if(data.media.photo_links[0]) main_photo = data.media.photo_links[0]
 
@@ -29,7 +33,7 @@ const ResItem = ({ data }) => {
                         </h5>
 
                         {data.exterior_color ? <p className='m-0'><strong>Color:</strong> {data.exterior_color}</p> : ''}
-                        {data.build.transmission ? <p className='m-0'><strong>Transmission:</strong> {data.build.transmission}</p> : ''}
+                        {transmission ? <p className='m-0'><strong>Transmission:</strong> {transmission}</p> : ''}
                     </div>
                 </div>
 
