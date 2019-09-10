@@ -21,12 +21,16 @@ const ResItem = ({ data }) => {
 
                 <div className='col-8 col-lg-7'>
                     <h6>{data.heading}</h6>
-                    <h5 className="text-right">${data.price}</h5>
+                    <h5 className="text-right">
+                        {data.price ? `$${(data.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'Ask for Price'}
+                    </h5>
 
-                    <p>{data.miles} Miles</p>
+                    <p>
+                        {data.miles ? `${(data.miles).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00','')} Miles` : ''}
+                    </p>
                     <p>
                     {data.exterior_color ? `Color: ${data.exterior_color}` : ''}
-                    {data.build.transmission ? ` - Transmission: ${data.build.transmission}` : ''}
+                    {data.build.transmission ? ` Transmission: ${data.build.transmission}` : ''}
                     </p>
                 </div>
 
