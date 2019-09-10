@@ -28,11 +28,11 @@ function App() {
                 transmission: '',
                 doors: [],
                 start: 0,
-                rows: 25
+                rows: 50
             },
             result: {
                 num_of_results: 0,
-                results: [1,2,3,4,5,6,7,8,9]
+                listings: []
             },
             redirect_to: ''
         },
@@ -108,11 +108,14 @@ function App() {
             .then(res => res.json())
             .then(res => {
                 console.log(res)
-                // newState.search.result = res
+                newState.search.result.num_of_results = res.result.num_found
+                newState.search.result.listings = res.result.listings
+            })
+            .then(() => {
+                newState.redirect_to = <Redirect to='/search' />
+                setState(newState)
             })
             
-        newState.redirect_to = <Redirect to='/search' />
-        setState(newState)
     }
 
     // const apiTest = () => {

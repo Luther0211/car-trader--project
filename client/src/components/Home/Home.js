@@ -37,7 +37,7 @@ const Home = ({carMakes, checkNumValue, updateRedirect, onFormChange, onFormSubm
                                 </select>
                             </div>
                             <div className="col-12 col-sm-6 col-md-3 mb-2">
-                            <input className="form-control" type="text" defaultValue='' name='zip' placeholder="ZIP Code" minLength="5" maxLength="5" onChange={(e) => onFormChange(e)} onInput={(e) => checkNumValue(e)} required />
+                            <input className="form-control" type="text" defaultValue='' name='zip' placeholder="ZIP Code" minLength="5" maxLength="5" onChange={(e) => onFormChange(e)} onInput={(e) => checkNumValue(e)} />
                             </div>
                             <div className="col-12 col-sm-6 col-md-2 mb-2">
                                 <button className="btn btn-info w-100" type="submit">Search</button>

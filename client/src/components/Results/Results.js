@@ -248,7 +248,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
         </form>    
     )
 
-    let ResultElements = resultData.results.map(resElem => <ResItem key={resElem} />)
+    let ResultElements = resultData.listings.map(listing => <ResItem key={listing.id} data={listing} />)
 
 
     return (
