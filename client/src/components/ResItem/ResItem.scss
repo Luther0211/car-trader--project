@@ -2,6 +2,16 @@
     
 }
 
+@media(max-width: 575px) {
+
+    h5 {
+        font-size: 1rem;
+    }
+    h6,p {
+        font-size: .8rem;
+    }
+}
+
 @media(min-width: 1200px ) {
     .ResItem {
         min-height: 200px;
