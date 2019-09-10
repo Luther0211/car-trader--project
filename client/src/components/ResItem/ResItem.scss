@@ -1,3 +1,9 @@
 .ResItem {
-    border-width: 2px !important;
+    
+}
+
+@media(min-width: 1200px ) {
+    .ResItem {
+        min-height: 200px;
+    }
 }
