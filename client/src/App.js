@@ -28,7 +28,8 @@ function App() {
                 transmission: '',
                 doors: [],
                 start: 0,
-                rows: 50
+                rows: 50,
+                sort_by: ''
             },
             result: {
                 num_of_results: 0,
@@ -97,14 +98,19 @@ function App() {
         if(params.int_color.length > 0) queryParams.push(`interior_color=${params.int_color.join(',')}`)
         if(params.transmission) queryParams.push(`transmission=${params.transmission}`)
         if(params.doors.length > 0) queryParams.push(`doors=${params.doors.join(',')}`)
-
+        
         queryParams.push(`start=${params.start}`)
         queryParams.push(`rows=${params.rows}`)
-
+        
+        if(e.target.name === 'sort_by') {
+            newState.search.params[e.target.name] = e.target.value
+            queryParams.push(e.target.value)
+        }
+        
         console.log( `/api/search?${queryParams.join('&')}` )
 
         // ...fetch data
-        fetch(`/api/search?${queryParams.join('&')}`)
+        fetch(`http://localhost:8080/api/search?${queryParams.join('&')}`)
             .then(res => res.json())
             .then(res => {
                 console.log(res)

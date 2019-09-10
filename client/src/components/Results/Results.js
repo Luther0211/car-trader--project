@@ -264,14 +264,14 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
                         </div>
 
                         <div className="col-12 col-sm-6 d-flex justify-content-center justify-content-sm-end">
-                            <select className="form-control" name="sort_by">
-                                <option value="relevance">Sort by: Relevance</option>
-                                <option value="price-lowest">Sort by: Price - Lowest</option>
-                                <option value="price-highest">Sort by: Price - Highest</option>
-                                <option value="mile-lowest">Sort by: Mileage - Lowest</option>
-                                <option value="mile-highest">Sort by: Mileage - Highest</option>
-                                <option value="year-lowest">Sort by: Year - Lowest</option>
-                                <option value="year-highest">Sort by: Year - Highest</option>
+                            <select className="form-control" name="sort_by" defaultValue={formValues.sort_by} onChange={(e) => onFormSubmit(e)}>
+                                <option value="">Sort by: Relevance</option>
+                                <option value="sort_by=price&sort_order=asc">Sort by: Price - Lowest</option>
+                                <option value="sort_by=price&sort_order=desc">Sort by: Price - Highest</option>
+                                <option value="sort_by=miles&sort_order=asc">Sort by: Mileage - Lowest</option>
+                                <option value="sort_by=miles&sort_order=desc">Sort by: Mileage - Highest</option>
+                                <option value="sort_by=year&sort_order=asc">Sort by: Year - Lowest</option>
+                                <option value="sort_by=year&sort_order=desc">Sort by: Year - Highest</option>
                             </select>
                         </div>
                     
