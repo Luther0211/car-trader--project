@@ -1,5 +1,7 @@
 import React from 'react'
 import './Results.scss'
+import Pagination from 'react-pagination-library'
+import './pagination.scss'
 import './Menu.css'
 import { slide as Menu } from 'react-burger-menu'
 import { Accordion, Card} from 'react-bootstrap'
@@ -8,6 +10,18 @@ import ResItem from '../ResItem/ResItem'
 
 const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmit, resultData }) => {
     // const formValues = {...formValues }
+    const numOfPages = Math.ceil( resultData.num_of_results / formValues.rows ) < 1000 / formValues.rows ? Math.ceil( resultData.num_of_results / formValues.rows ) : 1000 / formValues.rows
+
+    const changePage = (numPage) => {
+        const e = {
+            preventDefault: () => {console.log('preventDefault')},
+            target: {
+                name: 'pageChange',
+                value: numPage - 1
+            }
+        }
+        onFormSubmit(e)
+    }
 
     const car_year = []
     for(let i = 2019; i >=1900; i--) {
@@ -309,6 +323,12 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
 
                     </div>
 
+                    <Pagination 
+                        currentPage={(formValues.start / formValues.rows) + 1}
+                        totalPages={numOfPages}
+                        changeCurrentPage={changePage}
+                        theme='square-fill'
+                    />
 
                 </div>
 

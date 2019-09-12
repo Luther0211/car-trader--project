@@ -28,7 +28,7 @@ function App() {
                 transmission: '',
                 doors: [],
                 start: 0,
-                rows: 50,
+                rows: 25,
                 sort_by: ''
             },
             result: {
@@ -99,13 +99,17 @@ function App() {
         if(params.transmission) queryParams.push(`transmission=${params.transmission}`)
         if(params.doors.length > 0) queryParams.push(`doors=${params.doors.join(',')}`)
         
-        queryParams.push(`start=${params.start}`)
-        queryParams.push(`rows=${params.rows}`)
-        
         if(e.target.name === 'sort_by') {
             newState.search.params[e.target.name] = e.target.value
             queryParams.push(e.target.value)
         }
+        
+        if(e.target.name === 'pageChange') {
+            newState.search.params.start = (e.target.value * newState.search.params.rows)
+        }
+        
+        queryParams.push(`start=${newState.search.params.start}`)
+        queryParams.push(`rows=${params.rows}`)
         
         console.log( `/api/search?${queryParams.join('&')}` )
 
