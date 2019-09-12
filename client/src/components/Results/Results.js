@@ -273,7 +273,12 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
                     
                         <div className="col-12 col-sm-6 text-center text-sm-left">
                             <p className="Results__information mt-2">
-                                <span className="Results__number">123567</span> results in <span className="Results__zip"> <i className="fas fa-map-marker-alt"></i> 91911</span>
+                                <span className="Results__number">{ resultData.num_of_results }</span> Results
+                                {
+                                    formValues.zip 
+                                        ?   <span> in <span className="Results__zip"> <i className="fas fa-map-marker-alt"></i> {formValues.zip} </span> </span>
+                                        : ''
+                                }
                             </p>
                         </div>
 
