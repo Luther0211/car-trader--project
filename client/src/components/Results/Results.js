@@ -279,7 +279,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
                 </div>
             </div>
 
-            <div className="Results__body container pt-4">
+            <div className="Results__body container pt-2">
 
                 {/* Mobile elements */}
                 <div className="d-md-none">
@@ -303,7 +303,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
                         </div>
                     </div>
 
-                    <div className="Results__list col-12 col-md-8">
+                    <div className="Results__list col-12 col-md-8 pt-2 pt-md-0">
 
                         {ResultElements.length <= 0 ? 'No Results Found' : ResultElements}
 

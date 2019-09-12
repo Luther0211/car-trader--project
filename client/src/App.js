@@ -110,7 +110,7 @@ function App() {
         console.log( `/api/search?${queryParams.join('&')}` )
 
         // ...fetch data
-        fetch(`/api/search?${queryParams.join('&')}`)
+        fetch(`http://localhost:8080/api/search?${queryParams.join('&')}`)
             .then(res => res.json())
             .then(res => {
                 console.log(res)
