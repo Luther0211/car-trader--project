@@ -323,12 +323,14 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
 
                     </div>
 
-                    <Pagination 
-                        currentPage={(formValues.start / formValues.rows) + 1}
-                        totalPages={numOfPages}
-                        changeCurrentPage={changePage}
-                        theme='square-fill'
-                    />
+                    <div className='w-100 d-flex justify-content-center'>
+                        <Pagination 
+                            currentPage={(formValues.start / formValues.rows) + 1}
+                            totalPages={numOfPages}
+                            changeCurrentPage={changePage}
+                            theme='square-fill'
+                        />
+                    </div>
 
                 </div>
 
