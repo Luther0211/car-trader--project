@@ -1,6 +1,8 @@
 .ResItem {
+    min-height: 190px;
+
     &__save-icon {
-        font-size: x-large;
+        // font-size: x-large;
 
         &:hover {
             cursor: pointer;
@@ -14,25 +16,85 @@
     }
 
     &__view-btn {
+        margin-right: 10px;
         font-weight: 500;
-        width: 50%;
-        bottom: 10px;
+        // width: 30%;
+        bottom: 5px;
         right: 0;
+    }
+    &__view-link {
+        font-size: 12px;
+        font-weight: 500;
+        bottom: 0;
+        right: 10px;
+    }
+}
+
+// -------------| @MEDIAS |------------- //
+@media(max-width: 991px) {
+    .ResItem {
+        min-height: 112px;
+
+        h5 {
+            font-size: 1rem;
+        }
+        h6 {
+            font-size: .9rem;
+        }
+        &__details {
+            font-size: .9rem;
+        }        
+        &__view-btn {
+            font-size: 12px;
+            padding: 2px 25px;
+            bottom: 6px;
+            right: 0;
+        }
+    }
+}
+
+@media(max-width: 767px) {
+    .ResItem {
+        min-height: 120px;
     }
 }
 
 @media(max-width: 575px) {
-
-    h5 {
-        font-size: 1rem;
-    }
-    h6,p {
-        font-size: .8rem;
+    .ResItem {
+        min-height: 100px;
+        
+        &__view-link {
+            bottom: 6px;
+            font-size: 14px;
+        }
     }
 }
-
-@media(min-width: 1200px ) {
+    
+@media(max-width: 420px) {
     .ResItem {
-        min-height: 220px;
+        min-height: 80px;
+
+        h5 {
+            font-size: .6rem;
+        }
+        h6 {
+            font-size: .6rem;
+        }
+        &__details {
+            font-size: .6rem;
+        }
+        &__view-btn {
+            padding: 0;
+            font-size: .7rem;
+            bottom: 2px;
+            background-color: transparent;
+            border: none;
+            color: var(--info)
+        }
+        &__view-link {
+            bottom: 4px;
+            font-size: 10px;
+        }
     }
+    
 }
