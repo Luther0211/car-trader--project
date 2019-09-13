@@ -2,8 +2,13 @@ import React from 'react'
 import './ResItem.scss'
 
 
-const ResItem = ({ data }) => {
+const ResItem = ({ data, saveToLocal, removeFromLocal }) => {
     let main_photo = 'https://www.texastechnologies.com/wp-content/uploads/2016/10/product_i_m_img_not_available_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1.png'
+    const saved_list = JSON.parse(window.localStorage.getItem('car_listings'))
+    let isSaved = false
+
+    if(saved_list) isSaved = saved_list.find(elem => elem === data.id) ? true : false
+    
 
     let detail_list = []
     if(data.build && data.build.year) {
@@ -24,13 +29,9 @@ const ResItem = ({ data }) => {
 
     if(detail_list[detail_list.length - 1].name === 'detailPoint') detail_list.pop()
     
-
-
     if(data.media.photo_links[0]) main_photo = data.media.photo_links[0]
 
-    //  If local storage has saved this listing...
-    //  let heart_icon = localStorage.includes(data.id) ? <i className="fas fa-heart" /> : <i className="far fa-heart" />
-    //      
+
 
 
     return (
@@ -50,7 +51,13 @@ const ResItem = ({ data }) => {
                 <div className='col-8 col-lg-7 pl-0 pr-4'>
                     <h5 className="d-flex justify-content-between m-0 my-lg-3 py-1 pb-lg-3 border-bottom">
                         <span>{data.price ? `$${(data.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'Ask for Price'}</span>
-                        <span className='ResItem__save-icon text-info'>{ <i className="far fa-heart" /> }</span>
+                        <span className='ResItem__save-icon'>
+                        { 
+                            isSaved
+                                ? <i className="fas fa-heart text-danger"  onClick={() => removeFromLocal(data.id)}/>
+                                : <i className="far fa-heart text-info"  onClick={() => saveToLocal(data.id)}/>        
+                        }
+                        </span>
                     </h5>
 
                     <div className='ResItem__details p-0 p-md-1 p-lg-2 mt-1 mt-lg-3 mt-xl-4 d-flex justify-content-between'>

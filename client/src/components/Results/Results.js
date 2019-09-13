@@ -8,7 +8,7 @@ import { Accordion, Card} from 'react-bootstrap'
 import ResItem from '../ResItem/ResItem'
 
 
-const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmit, resultData }) => {
+const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmit, resultData, saveToLocal, removeFromLocal }) => {
     // const formValues = {...formValues }
     const numOfPages = Math.ceil( resultData.num_of_results / formValues.rows ) < 1000 / formValues.rows ? Math.ceil( resultData.num_of_results / formValues.rows ) : 1000 / formValues.rows
 
@@ -262,7 +262,7 @@ const Results = ({carMakes, formValues, checkNumValue, onFormChange, onFormSubmi
         </form>    
     )
 
-    const ResultElements = resultData.listings.map(listing => <ResItem key={listing.id} data={listing} />)
+    const ResultElements = resultData.listings.map(listing => <ResItem key={listing.id} data={listing} saveToLocal={saveToLocal} removeFromLocal={removeFromLocal} />)
 
 
     return (

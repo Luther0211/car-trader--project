@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import './bootstrap.css';
 import './fontawesome.css';
@@ -37,10 +37,40 @@ function App() {
             },
             redirect_to: ''
         },
+        saved_posts: [],
         loading: false
     })
 
     const params = {...state.search.params}
+
+    useEffect(() => {    
+        const car_listings = window.localStorage.getItem('car_listings')
+        
+        if(car_listings && car_listings !== JSON.stringify(state.saved_posts) ) {
+            const newState = {...state}
+            newState.saved_posts = JSON.parse(car_listings)
+            setState(newState)
+        }
+    })
+
+    const saveToLocal = (id) => {
+        const newState = {...state}
+        
+        newState.saved_posts.push(id)
+
+        window.localStorage.setItem('car_listings', JSON.stringify(newState.saved_posts))
+        setState(newState)
+        console.log('LOCAL STORAGE:', JSON.parse(window.localStorage.car_listings))
+    }
+
+    const removeFromLocal = (id) => {
+        const newState = {...state}
+        newState.saved_posts = newState.saved_posts.filter(elem => elem !== id)
+
+        window.localStorage.setItem('car_listings', JSON.stringify(newState.saved_posts))
+        setState(newState)
+        console.log('LOCAL STORAGE:', JSON.parse(window.localStorage.car_listings))
+    }
 
     const updateRedirect = () => {
         if(state.redirect_to !== '') {
@@ -114,7 +144,7 @@ function App() {
         console.log( `/api/search?${queryParams.join('&')}` )
 
         // ...fetch data
-        fetch(`/api/search?${queryParams.join('&')}`)
+        fetch(`http://localhost:8080/api/search?${queryParams.join('&')}`)
             .then(res => res.json())
             .then(res => {
                 console.log(res)
@@ -159,6 +189,8 @@ function App() {
                             onFormChange={onFormChange}
                             onFormSubmit={onFormSubmit}
                             resultData={state.search.result}
+                            saveToLocal={saveToLocal}
+                            removeFromLocal={removeFromLocal}
                         />
                     } />
                     <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />
