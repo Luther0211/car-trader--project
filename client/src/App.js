@@ -8,6 +8,7 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import Results from './components/Results/Results'
 import SavedListings from './components/SavedListings/SavedListings'
+import Listing from './components/Listing/Listing'
 import Footer from './components/Footer/Footer';
 
 function App() {
@@ -197,7 +198,7 @@ function App() {
                             removeFromLocal={removeFromLocal}
                         />
                     }/>
-                    <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />
+                    <Route exact path="/listing/:id" component={() => <Listing /> }/>
                 </Switch>
 
         
