@@ -7,6 +7,7 @@ import './App.scss';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import Results from './components/Results/Results'
+import SavedListings from './components/SavedListings/SavedListings'
 import Footer from './components/Footer/Footer';
 
 function App() {
@@ -176,7 +177,7 @@ function App() {
                             onFormChange={onFormChange}
                             onFormSubmit={onFormSubmit}
                         />
-                    } />
+                    }/>
                     <Route exact path="/search" component={() => 
                         <Results 
                             carMakes={state.carMakes}
@@ -188,8 +189,14 @@ function App() {
                             saveToLocal={saveToLocal}
                             removeFromLocal={removeFromLocal}
                         />
-                    } />
-                    <Route exact path="/saved" component={() => <h1>Your saved listings!</h1>} />
+                    }/>
+                    <Route exact path="/saved" component={() => 
+                        <SavedListings 
+                            saved={state.saved_posts}
+                            saveToLocal={saveToLocal}
+                            removeFromLocal={removeFromLocal}
+                        />
+                    }/>
                     <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />
                 </Switch>
 
