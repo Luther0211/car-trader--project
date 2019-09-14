@@ -53,10 +53,10 @@ function App() {
         }
     })
 
-    const saveToLocal = (id) => {
+    const saveToLocal = (data) => {
         const newState = {...state}
         
-        newState.saved_posts.push(id)
+        newState.saved_posts.push(data)
 
         window.localStorage.setItem('car_listings', JSON.stringify(newState.saved_posts))
         setState(newState)
@@ -65,7 +65,7 @@ function App() {
 
     const removeFromLocal = (id) => {
         const newState = {...state}
-        newState.saved_posts = newState.saved_posts.filter(elem => elem !== id)
+        newState.saved_posts = newState.saved_posts.filter(listing => listing.id !== id)
 
         window.localStorage.setItem('car_listings', JSON.stringify(newState.saved_posts))
         setState(newState)
@@ -144,7 +144,7 @@ function App() {
         console.log( `/api/search?${queryParams.join('&')}` )
 
         // ...fetch data
-        fetch(`/api/search?${queryParams.join('&')}`)
+        fetch(`http://localhost:8080/api/search?${queryParams.join('&')}`)
             .then(res => res.json())
             .then(res => {
                 console.log(res)
@@ -158,12 +158,8 @@ function App() {
             
     }
 
-    // const apiTest = () => {
-    //     fetch('/api')
-    //         .then(res => res.json())
-    //         .then(data => setState({data: [...data]}))        
-    // }
-    
+
+
   return (
     <div className="App">
         <Router>

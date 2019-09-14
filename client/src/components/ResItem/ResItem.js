@@ -7,7 +7,7 @@ const ResItem = ({ data, saveToLocal, removeFromLocal }) => {
     const saved_list = JSON.parse(window.localStorage.getItem('car_listings'))
     let isSaved = false
 
-    if(saved_list) isSaved = saved_list.find(elem => elem === data.id) ? true : false
+    if(saved_list) isSaved = saved_list.find(elem => elem.id === data.id) ? true : false
     
 
     let detail_list = []
@@ -55,7 +55,7 @@ const ResItem = ({ data, saveToLocal, removeFromLocal }) => {
                         { 
                             isSaved
                                 ? <i className="fas fa-heart text-danger"  onClick={() => removeFromLocal(data.id)}/>
-                                : <i className="far fa-heart text-info"  onClick={() => saveToLocal(data.id)}/>        
+                                : <i className="far fa-heart text-info"  onClick={() => saveToLocal(data)}/>        
                         }
                         </span>
                     </h5>
