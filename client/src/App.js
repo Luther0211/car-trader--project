@@ -51,7 +51,7 @@ function App() {
             newState.saved_posts = JSON.parse(car_listings)
             setState(newState)
         }
-    })
+    }, [state])
 
     const saveToLocal = (data) => {
         const newState = {...state}
@@ -189,6 +189,7 @@ function App() {
                             removeFromLocal={removeFromLocal}
                         />
                     } />
+                    <Route exact path="/saved" component={() => <h1>Your saved listings!</h1>} />
                     <Route exact path="/listing/:id" component={() => <h1>Listing Component</h1>} />
                 </Switch>
 

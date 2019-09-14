@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './ResItem.scss'
 
 
@@ -66,8 +67,8 @@ const ResItem = ({ data, saveToLocal, removeFromLocal }) => {
                 </div>
                     
 
-                <button className='ResItem__view-btn d-none d-sm-block position-absolute btn btn-sm btn-info'>View</button>
-                <a className="ResItem__view-link d-sm-none position-absolute text-info border-bottom border-info">View</a>
+                <Link to={`/listing/${data.id}`} className='ResItem__view-btn d-none d-sm-block position-absolute btn btn-sm btn-info'>View</Link>
+                <Link to={`/listing/${data.id}`} className="ResItem__view-link d-sm-none position-absolute text-info border-bottom border-info">View</Link>
 
             </div>
         </div>

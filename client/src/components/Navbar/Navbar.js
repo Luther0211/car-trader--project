@@ -11,12 +11,10 @@ const Navbar = () => {
         <nav className="Navbar navbar bg-info">
             <div className="container">
                 <Link to="/" className="Navbar__main-link navbar-brand p-0">Auto Listings</Link>
-                <a href="#2" className="Navbar__user-link position-relative">
+                <Link to="/saved" className="Navbar__user-link position-relative">
                     <i className="fas fa-user-circle"></i>
-                    {
-                        listingIcon
-                    }
-                </a>
+                    { listingIcon }
+                </Link>
             </div>
         </nav>
     )
