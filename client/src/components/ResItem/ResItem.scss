@@ -1,8 +1,15 @@
 .ResItem {
     min-height: 190px;
 
+    & h6 {
+        font-size: 1.2rem;
+    }
+
     &__save-icon {
-        // font-size: x-large;
+        font-size: xx-large;
+        top: 50%;
+        right: 0;
+        transform: translate(0, -50%); 
 
         &:hover {
             cursor: pointer;
@@ -18,8 +25,8 @@
     &__view-btn {
         margin-right: 10px;
         font-weight: 500;
-        // width: 30%;
-        bottom: 5px;
+        width: 30%;
+        bottom: 10px;
         right: 0;
     }
     &__view-link {
@@ -40,6 +47,9 @@
         }
         h6 {
             font-size: .9rem;
+        }
+        &__save-icon {
+            font-size: x-large;
         }
         &__details {
             font-size: .9rem;
@@ -80,6 +90,11 @@
         h6 {
             font-size: .6rem;
         }
+
+        &__save-icon {
+            font-size: medium;
+        }
+
         &__details {
             font-size: .6rem;
         }

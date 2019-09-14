@@ -11,23 +11,23 @@ const ResItem = ({ data, saveToLocal, removeFromLocal }) => {
     
 
     let detail_list = []
-    if(data.build && data.build.year) {
-        detail_list.push(<span key="details-year">{data.build.year}</span>)
-        detail_list.push(<span key='point1' name='detailPoint'>•</span>)
-    }
-    if(data.miles) {
-        detail_list.push(<span key='details-miles'>{(data.miles).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00','')} miles</span>)
-        detail_list.push(<span key='point2' name='detailPoint'>•</span>)
-    }
-    if(data.build && data.build.fuel_type) {
-        detail_list.push(<span key='details-fuel'>{data.build.fuel_type.replace('Unleaded', '')}</span>)
-        detail_list.push(<span key='point3' name='detailPoint'>•</span>)
-    }
-    if(data.build && data.build.transmission) {
-        detail_list.push(<span key='details-trans'>{data.build.transmission.replace('Automated', '')}</span>)
-    }
+        if(data.build && data.build.year) {
+            detail_list.push(<span key="details-year">{data.build.year}</span>)
+            detail_list.push(<span key='point1' name='detailPoint'>•</span>)
+        }
+        if(data.miles) {
+            detail_list.push(<span key='details-miles'>{(data.miles).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00','')} miles</span>)
+            detail_list.push(<span key='point2' name='detailPoint'>•</span>)
+        }
+        if(data.build && data.build.fuel_type) {
+            detail_list.push(<span key='details-fuel'>{data.build.fuel_type.replace('Unleaded', '')}</span>)
+            detail_list.push(<span key='point3' name='detailPoint'>•</span>)
+        }
+        if(data.build && data.build.transmission) {
+            detail_list.push(<span key='details-trans'>{data.build.transmission.replace('Automated', '')}</span>)
+        }
 
-    if(detail_list[detail_list.length - 1].name === 'detailPoint') detail_list.pop()
+        if(detail_list[detail_list.length - 1].name === 'detailPoint') detail_list.pop()
     
     if(data.media.photo_links[0]) main_photo = data.media.photo_links[0]
 
@@ -49,9 +49,9 @@ const ResItem = ({ data, saveToLocal, removeFromLocal }) => {
                 </div>
 
                 <div className='col-8 col-lg-7 pl-0 pr-4'>
-                    <h5 className="d-flex justify-content-between m-0 my-lg-3 py-1 pb-lg-3 border-bottom">
+                    <h5 className="d-flex justify-content-between position-relative m-0 py-1 py-lg-3 border-bottom">
                         <span>{data.price ? `$${(data.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}` : 'Ask for Price'}</span>
-                        <span className='ResItem__save-icon'>
+                        <span className='ResItem__save-icon position-absolute'>
                         { 
                             isSaved
                                 ? <i className="fas fa-heart text-danger"  onClick={() => removeFromLocal(data.id)}/>
