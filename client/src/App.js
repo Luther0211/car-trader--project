@@ -108,6 +108,16 @@ function App() {
         const newState = {...state}
         const queryParams = []
 
+        if(e.target.name === 'sort_by') {
+            newState.search.params.sort_by = e.target.value
+            params.sort_by = e.target.value
+        }
+        
+        if(e.target.name === 'pageChange') {
+            newState.search.params.start = (e.target.value * newState.search.params.rows)
+            params.start = (e.target.value * newState.search.params.rows)
+        }
+
         newState.search.params = params
 
         if(params.zip) queryParams.push(`zip=${params.zip}`)
@@ -131,16 +141,10 @@ function App() {
         if(params.transmission) queryParams.push(`transmission=${params.transmission}`)
         if(params.doors.length > 0) queryParams.push(`doors=${params.doors.join(',')}`)
         
-        if(e.target.name === 'sort_by') {
-            newState.search.params[e.target.name] = e.target.value
-            queryParams.push(e.target.value)
-        }
+        if(params.sort_by) queryParams.push(params.sort_by)
+
         
-        if(e.target.name === 'pageChange') {
-            newState.search.params.start = (e.target.value * newState.search.params.rows)
-        }
-        
-        queryParams.push(`start=${newState.search.params.start}`)
+        queryParams.push(`start=${params.start}`)
         queryParams.push(`rows=${params.rows}`)
         
         console.log( `/api/search?${queryParams.join('&')}` )
