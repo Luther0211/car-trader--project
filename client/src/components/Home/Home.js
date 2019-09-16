@@ -53,12 +53,12 @@ const Home = ({carMakes, checkNumValue, updateRedirect, onFormChange, onFormSubm
                 <hr className="my-4 border-dark" />
 
                 <div className="row">
-                    <CarStyle carStyle="SUV" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_SUVCROSS.png" />
-                    <CarStyle carStyle="Sedan" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_SEDAN.png" />
-                    <CarStyle carStyle="Pickup" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_TRUCKS.png" />
-                    <CarStyle carStyle="Hatchback" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_HATCH.png" />
-                    <CarStyle carStyle="Coupe" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_COUPE.png" />
-                    <CarStyle carStyle="Wagon" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_WAGON.png" />
+                    <CarStyle onFormSubmit={onFormSubmit} carStyle="SUV" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_SUVCROSS.png" />
+                    <CarStyle onFormSubmit={onFormSubmit} carStyle="Sedan" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_SEDAN.png" />
+                    <CarStyle onFormSubmit={onFormSubmit} carStyle="Pickup" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_TRUCKS.png" />
+                    <CarStyle onFormSubmit={onFormSubmit} carStyle="Hatchback" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_HATCH.png" />
+                    <CarStyle onFormSubmit={onFormSubmit} carStyle="Coupe" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_COUPE.png" />
+                    <CarStyle onFormSubmit={onFormSubmit} carStyle="Wagon" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_WAGON.png" />
                 </div>
                 
                 

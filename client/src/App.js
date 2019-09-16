@@ -108,6 +108,11 @@ function App() {
         const newState = {...state}
         const queryParams = []
 
+        if(e.target.name === 'bodyStyle') {
+            newState.search.params.body_style = [e.target.value]
+            params.body_style = [e.target.value]
+        }
+        
         if(e.target.name === 'sort_by') {
             newState.search.params.sort_by = e.target.value
             params.sort_by = e.target.value
