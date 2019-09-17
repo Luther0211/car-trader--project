@@ -108,6 +108,9 @@ function App() {
         const newState = {...state}
         const queryParams = []
 
+        newState.search.params.start = 0
+        params.start = 0
+
         if(e.target.name === 'bodyStyle') {
             newState.search.params.body_style = [e.target.value]
             params.body_style = [e.target.value]
@@ -159,7 +162,7 @@ function App() {
             .then(res => res.json())
             .then(res => {
                 console.log(res)
-                newState.search.result.num_of_results = res.result.num_found
+                newState.search.result.num_of_results = res.result && res.result.num_found ? res.result.num_found : 0
                 newState.search.result.listings = res.result.listings
             })
             .then(() => {
