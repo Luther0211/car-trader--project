@@ -42,8 +42,14 @@ app.get('/api/search', (req, res) => {
 })
 
 app.get('/api/listing/:listingId', (req, res) => {
-    console.log(req.params)
-    res.status(200).json({msg: 'listing data'})
+    const listingId = req.params.listingId
+    console.log(listingId)
+
+    API.get(`/listing/${listingId}?api_key=${API_KEY}`)
+        .then(result => {
+            res.status(result.status).json(result.data)
+        })
+
 })
 
 app.get('*', (req, res) => {
