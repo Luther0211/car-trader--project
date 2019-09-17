@@ -41,6 +41,11 @@ app.get('/api/search', (req, res) => {
         })
 })
 
+app.get('/api/listing/:listingId', (req, res) => {
+    console.log(req.params)
+    res.status(200).json({msg: 'listing data'})
+})
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
 })
