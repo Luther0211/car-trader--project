@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Listing.scss'
+import { Zoom } from 'react-slideshow-image'
 
 const Listing = () => {
     const listingId = window.location.pathname.replace('/listing/', '')
@@ -122,12 +123,24 @@ const Listing = () => {
         }
     })
 
+    const zoomInProps = {
+        duration: 3000,
+        transitionDuration: 500,
+        infinite: Listing.media.photo_links.length > 1,
+        indicators: true,
+        scale: 1.4,
+        arrows: Listing.media.photo_links.length > 1
+    }
 
 
     return (
-        <div className="Listing container">
-            Listing Component
-            { Listing.id }
+        <div className="Listing container p-4 border bg-white">
+            <h1 className='Listing__heading'>{ Listing.heading }</h1>
+
+            <Zoom {...zoomInProps} >
+                {Listing.media.photo_links.map(url => <img key={url} src={url} alt={Listing.heading} style={{width: '100%'}} /> )}
+            </Zoom>
+
         </div>
     )
 }
