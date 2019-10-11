@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import './bootstrap.css';
+// import './bootstrap.js';
 import './fontawesome.css';
 import './App.scss';
 // COMPONENTS
@@ -163,7 +164,7 @@ function App() {
             .then(res => {
                 console.log(res)
                 newState.search.result.num_of_results = res.result && res.result.num_found ? res.result.num_found : 0
-                newState.search.result.listings = res.result.listings
+                newState.search.result.listings = res.result && res.result.listings
             })
             .then(() => {
                 newState.redirect_to = <Redirect to='/search' />
@@ -172,6 +173,15 @@ function App() {
             
     }
 
+    const resetHomeParamsValues = (values, e) => {
+        params.make = values.make ? [values.make] : []
+        params.condition = values.condition
+        params.zip = values.zip
+        
+        console.log(params)
+
+        onFormSubmit(e)
+    }
 
 
   return (
@@ -189,6 +199,7 @@ function App() {
                             updateRedirect={updateRedirect}
                             onFormChange={onFormChange}
                             onFormSubmit={onFormSubmit}
+                            resetHomeParamsValues={resetHomeParamsValues}
                         />
                     }/>
                     <Route exact path="/search" component={() => 

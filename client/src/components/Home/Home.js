@@ -4,11 +4,24 @@ import './Home.scss'
 import CarStyle from '../CarStyle/CarStyle'
 
 
-const Home = ({carMakes, checkNumValue, updateRedirect, onFormChange, onFormSubmit  }) => {
+const Home = ({carMakes, checkNumValue, updateRedirect, onFormChange, onFormSubmit, resetHomeParamsValues }) => {
 
     useEffect(() => {
         updateRedirect()
     })
+
+    const updateParamsAndSubmitForm = e => {
+        e.preventDefault()
+
+        const values = {
+            'make': e.target['home-make'].value,
+            'condition': e.target['condition'].value,
+            'zip': e.target['zip'].value
+        }
+
+        resetHomeParamsValues(values, e)
+    
+    }
     
     return (
         <div className="Home">
@@ -20,7 +33,8 @@ const Home = ({carMakes, checkNumValue, updateRedirect, onFormChange, onFormSubm
                     
                     <hr className="mt-4 mb-5 border-light" />
                     
-                    <form className="mb-5" onSubmit={(e) => onFormSubmit(e)}>
+                    {/* <form className="mb-5" onSubmit={(e) => onFormSubmit(e)}> */}
+                    <form className="mb-5" onSubmit={(e) => updateParamsAndSubmitForm(e)}>
                         <div className="form-row">
                             <div className="col-12 col-sm-6 col-md-4 mb-2">
                                 <select className="form-control" name="home-make" defaultValue='' onChange={(e) => onFormChange(e)}>
