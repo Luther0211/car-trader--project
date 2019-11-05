@@ -38,8 +38,8 @@ function App() {
                 num_of_results: 0,
                 listings: []
             },
-            redirect_to: ''
         },
+        redirect_to: '',
         saved_posts: [],
         loading: false
     })

@@ -13,22 +13,24 @@ const ResItem = ({ data, saveToLocal, removeFromLocal }) => {
 
     let detail_list = []
         if(data.build && data.build.year) {
-            detail_list.push(<span key="details-year">{data.build.year}</span>)
+            detail_list.push(<span key="details-year" name="detail-elem">{data.build.year}</span>)
             detail_list.push(<span key='point1' name='detailPoint'>•</span>)
         }
         if(data.miles) {
-            detail_list.push(<span key='details-miles'>{(data.miles).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00','')} miles</span>)
+            detail_list.push(<span key='details-miles' name="detail-elem">{(data.miles).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00','')} miles</span>)
             detail_list.push(<span key='point2' name='detailPoint'>•</span>)
         }
         if(data.build && data.build.fuel_type) {
-            detail_list.push(<span key='details-fuel'>{data.build.fuel_type.replace('Unleaded', '')}</span>)
+            detail_list.push(<span key='details-fuel' name="detail-elem">{data.build.fuel_type.replace('Unleaded', '')}</span>)
             detail_list.push(<span key='point3' name='detailPoint'>•</span>)
         }
         if(data.build && data.build.transmission) {
             detail_list.push(<span key='details-trans'>{data.build.transmission.replace('Automated', '')}</span>)
         }
 
-        if(detail_list[detail_list.length - 1].name === 'detailPoint') detail_list.pop()
+        console.log(detail_list)
+
+        if(detail_list.length > 0 && detail_list[detail_list.length - 1].name === 'detailPoint') detail_list.pop()
     
     if(data.media.photo_links[0]) main_photo = data.media.photo_links[0]
 
