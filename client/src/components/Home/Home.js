@@ -4,7 +4,7 @@ import './Home.scss'
 import CarStyle from '../CarStyle/CarStyle'
 
 
-const Home = ({carMakes, checkNumValue, updateRedirect, onFormChange, onFormSubmit, resetHomeParamsValues }) => {
+const Home = ({carMakes, checkNumValue, updateRedirect, onFormChange, resetHomeParamsValues }) => {
 
     useEffect(() => {
         updateRedirect()
@@ -33,7 +33,6 @@ const Home = ({carMakes, checkNumValue, updateRedirect, onFormChange, onFormSubm
                     
                     <hr className="mt-4 mb-5 border-light" />
                     
-                    {/* <form className="mb-5" onSubmit={(e) => onFormSubmit(e)}> */}
                     <form className="mb-5" onSubmit={(e) => updateParamsAndSubmitForm(e)}>
                         <div className="form-row">
                             <div className="col-12 col-sm-6 col-md-4 mb-2">
@@ -67,12 +66,12 @@ const Home = ({carMakes, checkNumValue, updateRedirect, onFormChange, onFormSubm
                 <hr className="my-4 border-dark" />
 
                 <div className="row">
-                    <CarStyle onFormSubmit={onFormSubmit} carStyle="SUV" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_SUVCROSS.png" />
-                    <CarStyle onFormSubmit={onFormSubmit} carStyle="Sedan" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_SEDAN.png" />
-                    <CarStyle onFormSubmit={onFormSubmit} carStyle="Pickup" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_TRUCKS.png" />
-                    <CarStyle onFormSubmit={onFormSubmit} carStyle="Hatchback" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_HATCH.png" />
-                    <CarStyle onFormSubmit={onFormSubmit} carStyle="Coupe" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_COUPE.png" />
-                    <CarStyle onFormSubmit={onFormSubmit} carStyle="Wagon" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_WAGON.png" />
+                    <CarStyle resetHomeParamsValues={resetHomeParamsValues} carStyle="SUV" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_SUVCROSS.png" />
+                    <CarStyle resetHomeParamsValues={resetHomeParamsValues} carStyle="Sedan" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_SEDAN.png" />
+                    <CarStyle resetHomeParamsValues={resetHomeParamsValues} carStyle="Pickup" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_TRUCKS.png" />
+                    <CarStyle resetHomeParamsValues={resetHomeParamsValues} carStyle="Hatchback" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_HATCH.png" />
+                    <CarStyle resetHomeParamsValues={resetHomeParamsValues} carStyle="Coupe" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_COUPE.png" />
+                    <CarStyle resetHomeParamsValues={resetHomeParamsValues} carStyle="Wagon" imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_WAGON.png" />
                 </div>
                 
                 

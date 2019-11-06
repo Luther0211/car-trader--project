@@ -28,7 +28,7 @@ const ResItem = ({ data, saveToLocal, removeFromLocal }) => {
             detail_list.push(<span key='details-trans'>{data.build.transmission.replace('Automated', '')}</span>)
         }
 
-        console.log(detail_list)
+        // console.log(detail_list)
 
         if(detail_list.length > 0 && detail_list[detail_list.length - 1].props.name === 'detailPoint') detail_list.pop()
     

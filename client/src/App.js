@@ -44,7 +44,7 @@ function App() {
         loading: false
     })
 
-    const params = {...state.search.params}
+    let params = {...state.search.params}
 
     useEffect(() => {    
         const car_listings = window.localStorage.getItem('car_listings')
@@ -174,12 +174,26 @@ function App() {
     }
 
     const resetHomeParamsValues = (values, e) => {
-        params.make = values.make ? [values.make] : []
-        params.condition = values.condition
-        params.zip = values.zip
-        
+        const newSearchParams = {
+            zip: values.zip || '',
+            radius: '',
+            min_price: '',
+            max_price: '',
+            condition: values.condition || '',
+            year: '',
+            mileage: '',
+            make: values.make ? [values.make] : [],
+            body_style: [],
+            ext_color: [],
+            int_color: [],
+            transmission: '',
+            doors: [],
+            start: 0,
+            rows: 25,
+            sort_by: ''
+        }
+        params = {...newSearchParams}
         console.log(params)
-
         onFormSubmit(e)
     }
 
@@ -198,7 +212,6 @@ function App() {
                             checkNumValue={checkNumValue}
                             updateRedirect={updateRedirect}
                             onFormChange={onFormChange}
-                            onFormSubmit={onFormSubmit}
                             resetHomeParamsValues={resetHomeParamsValues}
                         />
                     }/>
@@ -223,16 +236,6 @@ function App() {
                     }/>
                     <Route exact path="/listing/:id" component={() => <Listing /> }/>
                 </Switch>
-
-        
-        
-
-{/*         
-            <button onClick={apiTest}>Search</button>
-
-            {state.data.map((elem, i) => {
-                return <p>POST #{i+1}: {elem.title}</p>
-            })} */}
 
             <Footer />
         </Router>

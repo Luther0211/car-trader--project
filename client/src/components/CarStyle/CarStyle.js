@@ -1,18 +1,18 @@
 import React from 'react'
 import './CarStyle.scss'
 
-const CarStyle = ({ onFormSubmit, carStyle, imgUrl }) => {
+const CarStyle = ({ resetHomeParamsValues, carStyle, imgUrl }) => {
 
     const searchStyle = () => {
         const e = {
-            preventDefault: () => console.log('preventDefault'),
+            preventDefault: () => console.log(''),
             target: {
                 name: 'bodyStyle',
                 value: carStyle.toLowerCase()
             }
         }
 
-        onFormSubmit(e)
+        resetHomeParamsValues({}, e)
     }
 
     return (
