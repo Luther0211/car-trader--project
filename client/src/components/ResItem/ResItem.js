@@ -30,7 +30,7 @@ const ResItem = ({ data, saveToLocal, removeFromLocal }) => {
 
         console.log(detail_list)
 
-        if(detail_list.length > 0 && detail_list[detail_list.length - 1].name === 'detailPoint') detail_list.pop()
+        if(detail_list.length > 0 && detail_list[detail_list.length - 1].props.name === 'detailPoint') detail_list.pop()
     
     if(data.media.photo_links[0]) main_photo = data.media.photo_links[0]
 
@@ -63,7 +63,7 @@ const ResItem = ({ data, saveToLocal, removeFromLocal }) => {
                         </span>
                     </h5>
 
-                    <div className='ResItem__details p-0 p-md-1 p-lg-2 mt-1 mt-lg-3 mt-xl-4 d-flex justify-content-between'>
+                    <div className='ResItem__details p-0 p-md-1 p-lg-2 mt-1 mt-lg-3 mt-xl-4 d-flex justify-content-around'>
                         { detail_list }
                     </div>
                 </div>
