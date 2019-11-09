@@ -132,13 +132,14 @@ const Listing = () => {
 	});
 
 	const USD_PRICE = Listing.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+	const MILES = Listing.miles.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00', '');
 
 	return (
-		<div className="Listing container p-4 border bg-white">
+		<div className="Listing container border bg-white">
 			<h1 className="Listing__heading">{Listing.heading}</h1>
 
 			<div className="row">
-				<div className="col-12 col-lg-6">
+				<div className="col-12 col-lg-8 p-0">
 					<div id="photoControls" className="carousel slide" data-ride="carousel">
 						<div className="carousel-inner">
 							{Listing.media.photo_links.map((url, i) => (
@@ -170,11 +171,53 @@ const Listing = () => {
 						</a>
 					</div>
 				</div>
-				<div className="col">
-					{/* <h3 className="d-flex justify-content-between">
-						<span>Price:</span>
-						{Listing.price ? `$${USD_PRICE}` : 'Ask for Price'}
-					</h3> */}
+				<div className="col p-0">
+					<ul className="list-group">
+						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+							<span>Price: </span>
+							<span>${USD_PRICE}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+							<span>Condition: </span>
+							<span>{Listing.condition ? Listing.condition : 'New'}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+							<span>Make: </span>
+							<span>{Listing.build.make}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+							<span>Model: </span>
+							<span>{Listing.build.model}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+							<span>Body Type: </span>
+							<span>{Listing.build.body_type}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+							<span>Miles: </span>
+							<span>{MILES}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+							<span>Cylinders: </span>
+							<span>{Listing.build.cylinders}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+							<span>Engine: </span>
+							<span>{Listing.build.engine}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+							<span>Fuel Type: </span>
+							<span>{Listing.build.fuel_type}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+							<span>Doors: </span>
+							<span>{Listing.build.doors}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+							<span>Made in: </span>
+							<span>{Listing.build.made_in}</span>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
