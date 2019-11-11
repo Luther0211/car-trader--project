@@ -3,8 +3,6 @@ import './Listing.scss';
 // import SwiftSlider from 'react-swift-slider';
 
 const Listing = () => {
-	const listingId = window.location.pathname.replace('/listing/', '');
-
 	const [ Listing, setListing ] = useState({
 		id: '',
 		heading: '',
@@ -58,78 +56,82 @@ const Listing = () => {
 		}
 	});
 
-	useEffect(() => {
-		if (Listing.id !== listingId) {
-			const local_listing = JSON.parse(window.localStorage.getItem('local_listing'));
-			setListing(local_listing);
-			console.log(local_listing);
+	useEffect(
+		() => {
+			const listingId = window.location.pathname.replace('/listing/', '');
+			if (Listing.id !== listingId) {
+				const local_listing = JSON.parse(window.localStorage.getItem('local_listing'));
+				setListing(local_listing);
+				console.log(local_listing);
 
-			// COMMENTED OUT TO NOT FETCH FROM API ON EVERY RELOAD, USING LOCAL DATA WHILE DEVELOPING
+				// COMMENTED OUT TO NOT FETCH FROM API ON EVERY RELOAD, USING LOCAL DATA WHILE DEVELOPING
 
-			// fetch(`http://localhost:8080/api/listing/${listingId}`)
-			// 	.then((res) => res.json())
-			// 	.then((res) => {
-			// 		const newListing = { ...Listing };
-			// 		console.log(res);
+				// fetch(`http://localhost:8080/api/listing/${listingId}`)
+				// 	.then((res) => res.json())
+				// 	.then((res) => {
+				// 		const newListing = { ...Listing };
+				// 		console.log(res);
 
-			// 		if (res.id) newListing.id = res.id;
-			// 		if (res.heading) newListing.heading = res.heading;
-			// 		if (res.price) newListing.price = res.price;
-			// 		if (res.vdp_url) newListing.listing_url = res.vdp_url;
-			// 		if (res.dom) newListing.dom = res.dom;
-			// 		if (res.condition) newListing.condition = res.condition;
-			// 		if (res.miles) newListing.miles = res.miles;
-			// 		if (res.media && res.media.photo_links) newListing.media.photo_links = res.media.photo_links;
-			// 		if (res.extra && res.extra.features) newListing.extra.features = res.extra.features;
+				// 		if (res.id) newListing.id = res.id;
+				// 		if (res.heading) newListing.heading = res.heading;
+				// 		if (res.price) newListing.price = res.price;
+				// 		if (res.vdp_url) newListing.listing_url = res.vdp_url;
+				// 		if (res.dom) newListing.dom = res.dom;
+				// 		if (res.condition) newListing.condition = res.condition;
+				// 		if (res.miles) newListing.miles = res.miles;
+				// 		if (res.media && res.media.photo_links) newListing.media.photo_links = res.media.photo_links;
+				// 		if (res.extra && res.extra.features) newListing.extra.features = res.extra.features;
 
-			// 		if (res.dealer) {
-			// 			if (res.dealer.id) newListing.dealer.id = res.dealer.id;
-			// 			if (res.dealer.website) newListing.dealer.website = res.dealer.website;
-			// 			if (res.dealer.name) newListing.dealer.name = res.dealer.name;
-			// 			if (res.dealer.street) newListing.dealer.street = res.dealer.street;
-			// 			if (res.dealer.city) newListing.dealer.city = res.dealer.city;
-			// 			if (res.dealer.state) newListing.dealer.state = res.dealer.state;
-			// 			if (res.dealer.country) newListing.dealer.country = res.dealer.country;
-			// 			if (res.dealer.latitude) newListing.dealer.latitude = res.dealer.latitude;
-			// 			if (res.dealer.longitude) newListing.dealer.longitude = res.dealer.longitude;
-			// 			if (res.dealer.zip) newListing.dealer.zip = res.dealer.zip;
-			// 		}
+				// 		if (res.dealer) {
+				// 			if (res.dealer.id) newListing.dealer.id = res.dealer.id;
+				// 			if (res.dealer.website) newListing.dealer.website = res.dealer.website;
+				// 			if (res.dealer.name) newListing.dealer.name = res.dealer.name;
+				// 			if (res.dealer.street) newListing.dealer.street = res.dealer.street;
+				// 			if (res.dealer.city) newListing.dealer.city = res.dealer.city;
+				// 			if (res.dealer.state) newListing.dealer.state = res.dealer.state;
+				// 			if (res.dealer.country) newListing.dealer.country = res.dealer.country;
+				// 			if (res.dealer.latitude) newListing.dealer.latitude = res.dealer.latitude;
+				// 			if (res.dealer.longitude) newListing.dealer.longitude = res.dealer.longitude;
+				// 			if (res.dealer.zip) newListing.dealer.zip = res.dealer.zip;
+				// 		}
 
-			// 		if (res.build) {
-			// 			if (res.build.year) newListing.build.year = res.build.year;
-			// 			if (res.build.make) newListing.build.make = res.build.make;
-			// 			if (res.build.model) newListing.build.model = res.build.model;
-			// 			if (res.build.trim) newListing.build.trim = res.build.trim;
-			// 			if (res.build.body_type) newListing.build.body_type = res.build.body_type;
-			// 			if (res.build.vehicle_type) newListing.build.vehicle_type = res.build.vehicle_type;
-			// 			if (res.build.transmisison) newListing.build.transmisison = res.build.transmisison;
-			// 			if (res.build.drivetrain) newListing.build.drivetrain = res.build.drivetrain;
-			// 			if (res.build.fuel_type) newListing.build.fuel_type = res.build.fuel_type;
-			// 			if (res.build.engine) newListing.build.engine = res.build.engine;
-			// 			if (res.build.engine_size) newListing.build.engine_size = res.build.engine_size;
-			// 			if (res.build.engine_block) newListing.build.engine_block = res.build.engine_block;
-			// 			if (res.build.doors) newListing.build.doors = res.build.doors;
-			// 			if (res.build.cylinders) newListing.build.cylinders = res.build.cylinders;
-			// 			if (res.build.made_in) newListing.build.made_in = res.build.made_in;
-			// 			if (res.build.steering_type) newListing.build.steering_type = res.build.steering_type;
-			// 			if (res.build.antibreak_sys) newListing.build.antibreak_sys = res.build.antibreak_sys;
-			// 			if (res.build.tank_size) newListing.build.tank_size = res.build.tank_size;
-			// 			if (res.build.overall_height) newListing.build.overall_height = res.build.overall_height;
-			// 			if (res.build.overall_length) newListing.build.overall_length = res.build.overall_length;
-			// 			if (res.build.overall_width) newListing.build.overall_width = res.build.overall_width;
-			// 			if (res.build.highway_miles) newListing.build.highway_miles = res.build.highway_miles;
-			// 			if (res.build.city_miles) newListing.build.city_miles = res.build.city_miles;
-			// 		}
+				// 		if (res.build) {
+				// 			if (res.build.year) newListing.build.year = res.build.year;
+				// 			if (res.build.make) newListing.build.make = res.build.make;
+				// 			if (res.build.model) newListing.build.model = res.build.model;
+				// 			if (res.build.trim) newListing.build.trim = res.build.trim;
+				// 			if (res.build.body_type) newListing.build.body_type = res.build.body_type;
+				// 			if (res.build.vehicle_type) newListing.build.vehicle_type = res.build.vehicle_type;
+				// 			if (res.build.transmisison) newListing.build.transmisison = res.build.transmisison;
+				// 			if (res.build.drivetrain) newListing.build.drivetrain = res.build.drivetrain;
+				// 			if (res.build.fuel_type) newListing.build.fuel_type = res.build.fuel_type;
+				// 			if (res.build.engine) newListing.build.engine = res.build.engine;
+				// 			if (res.build.engine_size) newListing.build.engine_size = res.build.engine_size;
+				// 			if (res.build.engine_block) newListing.build.engine_block = res.build.engine_block;
+				// 			if (res.build.doors) newListing.build.doors = res.build.doors;
+				// 			if (res.build.cylinders) newListing.build.cylinders = res.build.cylinders;
+				// 			if (res.build.made_in) newListing.build.made_in = res.build.made_in;
+				// 			if (res.build.steering_type) newListing.build.steering_type = res.build.steering_type;
+				// 			if (res.build.antibreak_sys) newListing.build.antibreak_sys = res.build.antibreak_sys;
+				// 			if (res.build.tank_size) newListing.build.tank_size = res.build.tank_size;
+				// 			if (res.build.overall_height) newListing.build.overall_height = res.build.overall_height;
+				// 			if (res.build.overall_length) newListing.build.overall_length = res.build.overall_length;
+				// 			if (res.build.overall_width) newListing.build.overall_width = res.build.overall_width;
+				// 			if (res.build.highway_miles) newListing.build.highway_miles = res.build.highway_miles;
+				// 			if (res.build.city_miles) newListing.build.city_miles = res.build.city_miles;
+				// 		}
 
-			// 		return newListing;
-			// 	})
-			// 	.then((newState) => {
-			// 		window.localStorage.setItem('local_listing', JSON.stringify(newState));
-			// 		setListing(newState);
-			// 	});
-			// Add a catch block
-		}
-	});
+				// 		return newListing;
+				// 	})
+				// 	.then((newState) => {
+				// 		window.localStorage.setItem('local_listing', JSON.stringify(newState));
+				// 		setListing(newState);
+				// 	});
+				// Add a catch block
+			}
+		},
+		[ Listing ]
+	);
 
 	const USD_PRICE = Listing.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 	const MILES = Listing.miles.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00', '');
@@ -172,50 +174,50 @@ const Listing = () => {
 					</div>
 				</div>
 				<div className="col p-0">
-					<ul className="list-group">
-						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+					<ul className="Listing__list-group list-group font-weight-bold">
+						<li className="list-group-item d-flex justify-content-between">
 							<span>Price: </span>
-							<span>${USD_PRICE}</span>
+							<span className="text-info">${USD_PRICE}</span>
 						</li>
-						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+						<li className="list-group-item d-flex justify-content-between">
 							<span>Condition: </span>
-							<span>{Listing.condition ? Listing.condition : 'New'}</span>
+							<span className="text-info">{Listing.condition ? Listing.condition : 'New'}</span>
 						</li>
-						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+						<li className="list-group-item d-flex justify-content-between">
 							<span>Make: </span>
-							<span>{Listing.build.make}</span>
+							<span className="text-info">{Listing.build.make}</span>
 						</li>
-						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+						<li className="list-group-item d-flex justify-content-between">
 							<span>Model: </span>
-							<span>{Listing.build.model}</span>
+							<span className="text-info">{Listing.build.model}</span>
 						</li>
-						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+						<li className="list-group-item d-flex justify-content-between">
 							<span>Body Type: </span>
-							<span>{Listing.build.body_type}</span>
+							<span className="text-info">{Listing.build.body_type}</span>
 						</li>
-						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+						<li className="list-group-item d-flex justify-content-between">
 							<span>Miles: </span>
-							<span>{MILES}</span>
+							<span className="text-info">{MILES}</span>
 						</li>
-						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+						<li className="list-group-item d-flex justify-content-between">
 							<span>Cylinders: </span>
-							<span>{Listing.build.cylinders}</span>
+							<span className="text-info">{Listing.build.cylinders}</span>
 						</li>
-						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+						<li className="list-group-item d-flex justify-content-between">
 							<span>Engine: </span>
-							<span>{Listing.build.engine}</span>
+							<span className="text-info">{Listing.build.engine}</span>
 						</li>
-						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+						<li className="list-group-item d-flex justify-content-between">
 							<span>Fuel Type: </span>
-							<span>{Listing.build.fuel_type}</span>
+							<span className="text-info">{Listing.build.fuel_type}</span>
 						</li>
-						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+						<li className="list-group-item d-flex justify-content-between">
 							<span>Doors: </span>
-							<span>{Listing.build.doors}</span>
+							<span className="text-info">{Listing.build.doors}</span>
 						</li>
-						<li className="list-group-item d-flex justify-content-between font-weight-bold">
+						<li className="list-group-item d-flex justify-content-between">
 							<span>Made in: </span>
-							<span>{Listing.build.made_in}</span>
+							<span className="text-info">{Listing.build.made_in}</span>
 						</li>
 					</ul>
 				</div>
