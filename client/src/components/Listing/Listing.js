@@ -138,7 +138,7 @@ const Listing = () => {
 
 	return (
 		<div className="Listing container border bg-white">
-			<h1 className="Listing__heading">{Listing.heading}</h1>
+			<h1 className="Listing__heading display-4">{Listing.heading}</h1>
 
 			<div className="row">
 				<div className="col-12 col-lg-8 p-0">
@@ -222,6 +222,8 @@ const Listing = () => {
 					</ul>
 				</div>
 			</div>
+			<h4 className="mt-4">Additional details</h4>
+			<div className="Listing__additional-details-box my-3 p-2 bg-light">{Listing.extra.features.join(', ')}</div>
 		</div>
 	);
 };
