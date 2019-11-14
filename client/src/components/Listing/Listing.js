@@ -224,6 +224,37 @@ const Listing = () => {
 			</div>
 			<h4 className="mt-4">Additional details</h4>
 			<div className="Listing__additional-details-box my-3 p-2 bg-light">{Listing.extra.features.join(', ')}</div>
+			<h4 className="mt4">Dealer Information</h4>
+			<div className="row">
+				<div className="col-12 col-lg-6">
+					<ul className="dealer__list-group list-group font-weight-bold">
+						<li className="list-group-item d-flex justify-content-between">
+							<span>Name: </span>
+							<span className="text-info">{Listing.dealer.name}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between">
+							<span>Country: </span>
+							<span className="text-info">{Listing.dealer.country}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between">
+							<span>State: </span>
+							<span className="text-info">{Listing.dealer.state}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between">
+							<span>City: </span>
+							<span className="text-info">{Listing.dealer.city}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between">
+							<span>Zip code: </span>
+							<span className="text-info">{Listing.dealer.zip}</span>
+						</li>
+						<li className="list-group-item d-flex justify-content-between">
+							<span>Street: </span>
+							<span className="text-info">{Listing.dealer.street}</span>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	);
 };
