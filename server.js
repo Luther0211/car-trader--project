@@ -5,6 +5,7 @@ const Axios = require('axios');
 require('dotenv').config();
 
 const API_KEY = process.env.API_KEY;
+const MAPS_KEY = process.env.MAPS_KEY;
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -46,6 +47,7 @@ app.get('/api/listing/:listingId', (req, res) => {
 	console.log(listingId);
 
 	API.get(`/listing/${listingId}?api_key=${API_KEY}`).then((result) => {
+		result.data.map_key = MAPS_KEY;
 		res.status(result.status).json(result.data);
 	});
 });
