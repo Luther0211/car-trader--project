@@ -132,7 +132,7 @@ const Listing = () => {
 								lng={+newListing.dealer.longitude}
 								googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${newListing.map_key}`}
 								loadingElement={<div style={{ height: '100%' }} />}
-								containerElement={<div style={{ height: '100%' }} />}
+								containerElement={<div style={{ height: '300px' }} />}
 								mapElement={<div style={{ height: '100%' }} />}
 							/>
 						);
