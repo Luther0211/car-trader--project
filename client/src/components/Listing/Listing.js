@@ -68,7 +68,8 @@ const Listing = () => {
 
 				// COMMENTED OUT TO NOT FETCH FROM API ON EVERY RELOAD, USING LOCAL DATA WHILE DEVELOPING
 
-				fetch(`http://localhost:8080/api/listing/${listingId}`)
+				// fetch(`http://localhost:8080/api/listing/${listingId}`)
+				fetch(`/api/listing/${listingId}`)
 					.then((res) => res.json())
 					.then((res) => {
 						const newListing = { ...Listing };
