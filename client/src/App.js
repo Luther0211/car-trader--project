@@ -115,6 +115,7 @@ function App() {
 
 	useEffect(
 		() => {
+			console.log('APP COMPONENT RENDER');
 			const car_listings = window.localStorage.getItem('car_listings');
 
 			if (car_listings && car_listings !== JSON.stringify(state.saved_posts)) {
@@ -123,7 +124,7 @@ function App() {
 				setState(newState);
 			}
 		},
-		[ state ]
+		[ state.search.result, state.redirect_to ]
 	);
 
 	const saveToLocal = (data) => {
@@ -177,7 +178,7 @@ function App() {
 		e.preventDefault();
 
 		const newState = { ...state };
-		const queryParams = [];
+		const queryParamsArr = [];
 
 		newState.search.params.start = 0;
 		params.start = 0;
@@ -190,39 +191,39 @@ function App() {
 		newState.search.params = params;
 
 		//Starts building the query string
-		if (params.zip) queryParams.push(`zip=${params.zip}`);
-		if (params.radius) queryParams.push(`radius=${params.radius}`);
+		if (params.zip) queryParamsArr.push(`zip=${params.zip}`);
+		if (params.radius) queryParamsArr.push(`radius=${params.radius}`);
 
 		if (params.min_price || params.max_price) {
 			const priceRange = [ 0, 999999 ];
 			if (params.min_price) priceRange[0] = params.min_price;
 			if (params.max_price) priceRange[1] = params.max_price;
-			queryParams.push(`price_range=${priceRange.join('-')}`);
+			queryParamsArr.push(`price_range=${priceRange.join('-')}`);
 		}
 
-		if (params.condition) queryParams.push(`car_type=${params.condition}`);
-		if (params.year) queryParams.push(`year=${params.year}`);
-		if (params.mileage) queryParams.push(`miles_range=${params.mileage}`);
+		if (params.condition) queryParamsArr.push(`car_type=${params.condition}`);
+		if (params.year) queryParamsArr.push(`year=${params.year}`);
+		if (params.mileage) queryParamsArr.push(`miles_range=${params.mileage}`);
 
-		if (params.make.length > 0) queryParams.push(`make=${params.make.join(',')}`);
-		if (params.body_style.length > 0) queryParams.push(`body_type=${params.body_style.join(',')}`);
-		if (params.ext_color.length > 0) queryParams.push(`exterior_color=${params.ext_color.join(',')}`);
-		if (params.int_color.length > 0) queryParams.push(`interior_color=${params.int_color.join(',')}`);
-		if (params.transmission) queryParams.push(`transmission=${params.transmission}`);
-		if (params.doors.length > 0) queryParams.push(`doors=${params.doors.join(',')}`);
+		if (params.make.length > 0) queryParamsArr.push(`make=${params.make.join(',')}`);
+		if (params.body_style.length > 0) queryParamsArr.push(`body_type=${params.body_style.join(',')}`);
+		if (params.ext_color.length > 0) queryParamsArr.push(`exterior_color=${params.ext_color.join(',')}`);
+		if (params.int_color.length > 0) queryParamsArr.push(`interior_color=${params.int_color.join(',')}`);
+		if (params.transmission) queryParamsArr.push(`transmission=${params.transmission}`);
+		if (params.doors.length > 0) queryParamsArr.push(`doors=${params.doors.join(',')}`);
 
-		if (params.sort_by) queryParams.push(params.sort_by);
+		if (params.sort_by) queryParamsArr.push(params.sort_by);
 
-		queryParams.push(`start=${params.start}`);
-		queryParams.push(`rows=${params.rows}`);
+		queryParamsArr.push(`start=${params.start}`);
+		queryParamsArr.push(`rows=${params.rows}`);
 
-		const queryString = queryParams.join('&');
+		const queryString = queryParamsArr.join('&');
 
 		console.log(`/api/search?${queryString}`);
 
 		// ...fetch data
-		fetch(`http://localhost:8080/api/search?${queryString}`) // For local testing
-			// fetch(`/api/search?${queryParams.join('&')}`)
+		// fetch(`http://localhost:8080/api/search?${queryString}`) // For local testing
+		fetch(`/api/search?${queryString}`) // For Production use
 			.then((res) => res.json())
 			.then((res) => {
 				console.log('Client response: ', res);
@@ -312,7 +313,11 @@ function App() {
 							/>
 						)}
 					/>
-					<Route exact path="/listing/:id" component={() => <Listing />} />
+					<Route
+						exact
+						path="/listing/:id"
+						component={() => <Listing saveToLocal={saveToLocal} removeFromLocal={removeFromLocal} />}
+					/>
 				</Switch>
 
 				<Footer />

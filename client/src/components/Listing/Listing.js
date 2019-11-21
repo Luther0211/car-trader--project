@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Listing.scss';
 import Map from '../Map/Map';
 
-const Listing = () => {
+const Listing = ({ removeFromLocal, saveToLocal }) => {
 	const [ Listing, setListing ] = useState({
 		id: '',
 		heading: '',
@@ -60,6 +60,7 @@ const Listing = () => {
 
 	useEffect(
 		() => {
+			console.log('LISTING COMPONENT RENDER');
 			const listingId = window.location.pathname.replace('/listing/', '');
 			if (Listing.id !== listingId) {
 				// const local_listing = JSON.parse(window.localStorage.getItem('local_listing'));
@@ -68,8 +69,8 @@ const Listing = () => {
 
 				// COMMENTED OUT TO NOT FETCH FROM API ON EVERY RELOAD, USING LOCAL DATA WHILE DEVELOPING
 
-				fetch(`http://localhost:8080/api/listing/${listingId}`) // For local testing
-					// fetch(`/api/listing/${listingId}`)
+				// fetch(`http://localhost:8080/api/listing/${listingId}`) // For local testing
+				fetch(`/api/listing/${listingId}`) // For Production use
 					.then((res) => res.json())
 					.then((res) => {
 						const newListing = { ...Listing };
@@ -137,6 +138,7 @@ const Listing = () => {
 								mapElement={<div style={{ height: '100%' }} />}
 							/>
 						);
+						newListing.isDataFetched = true;
 
 						return newListing;
 					})
@@ -144,20 +146,53 @@ const Listing = () => {
 						console.log(newState);
 						window.localStorage.setItem('local_listing', JSON.stringify(newState));
 						setListing(newState);
+					})
+					.catch((err) => {
+						console.log(err);
 					});
-				// Add a catch block
 			}
 		},
-		[ Listing ]
+		[ Listing.isDataFetched ]
 	);
 
-	const USD_PRICE = Listing.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+	const USD_PRICE = Listing.price
+		? `$${Listing.price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`
+		: 'Ask for price';
 	const MILES = Listing.miles.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00', '');
+	const saved_list = JSON.parse(window.localStorage.getItem('car_listings'));
+	let isSaved = false;
+
+	if (saved_list) isSaved = saved_list.find((elem) => elem.id === Listing.id) ? true : false;
 
 	return (
 		<div className="Listing container border bg-white">
 			<h1 className="Listing__heading display-4">{Listing.heading}</h1>
+			<div className="row mb-3">
+				{isSaved ? (
+					<div
+						className="col-12 col-md-6 py-3 Listing__btn Listing__btn--remove bg-danger rounded-left text-white font-weight-bold text-center"
+						onClick={() => removeFromLocal(Listing.id)}
+					>
+						<i className="fas fa-trash-alt" /> REMOVE LISTING
+					</div>
+				) : (
+					<div
+						className="col-12 col-md-6 py-3 Listing__btn Listing__btn--save bg-info rounded-left text-white font-weight-bold text-center"
+						onClick={() => saveToLocal(Listing)}
+					>
+						<i className="far fa-heart" /> SAVE LISTING
+					</div>
+				)}
 
+				<a
+					href={Listing.listing_url}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="Listing__website col-12 col-md-6 py-3 Listing__btn Listing__btn--link bg-warning rounded-right font-weight-bold text-center"
+				>
+					GO TO WEBSITE <i className="fas fa-external-link-alt" />
+				</a>
+			</div>
 			<div className="row">
 				<div className="col-12 col-lg-8 p-0">
 					<div id="photoControls" className="carousel slide" data-ride="carousel">
@@ -195,7 +230,7 @@ const Listing = () => {
 					<ul className="Listing__list-group list-group font-weight-bold">
 						<li className="list-group-item d-flex justify-content-between">
 							<span>Price: </span>
-							<span className="text-info">${USD_PRICE}</span>
+							<span className="text-info">{USD_PRICE}</span>
 						</li>
 						<li className="list-group-item d-flex justify-content-between">
 							<span>Condition: </span>
@@ -240,6 +275,7 @@ const Listing = () => {
 					</ul>
 				</div>
 			</div>
+
 			<h4 className="mt-4">Additional details</h4>
 			<div className="Listing__additional-details-box my-3 p-2 bg-light">{Listing.extra.features.join(', ')}</div>
 			<h4 className="mt4">Dealer Information</h4>

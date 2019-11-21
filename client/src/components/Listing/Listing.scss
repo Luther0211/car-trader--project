@@ -14,7 +14,25 @@
 		}
 	}
 
-	&__additional-details-box {
+	&__btn {
+		cursor: pointer;
+		transition: all .2s;
+
+		&--save:hover {
+			background-color: #138496 !important;
+		}
+		&--remove:hover {
+			background-color: #c82333 !important;
+		}
+		&--link {
+			color: #212529;
+			&:hover,
+			&:link {
+				color: inherit;
+				text-decoration: none;
+				background-color: #e0a800 !important;
+			}
+		}
 	}
 }
 
