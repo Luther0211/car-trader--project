@@ -182,23 +182,14 @@ function App() {
 		newState.search.params.start = 0;
 		params.start = 0;
 
-		if (e.target.name === 'bodyStyle') {
-			newState.search.params.body_style = [ e.target.value ];
-			params.body_style = [ e.target.value ];
-		}
-
-		if (e.target.name === 'sort_by') {
-			newState.search.params.sort_by = e.target.value;
-			params.sort_by = e.target.value;
-		}
-
-		if (e.target.name === 'pageChange') {
-			newState.search.params.start = e.target.value * newState.search.params.rows;
-			params.start = e.target.value * newState.search.params.rows;
-		}
+		// Technically not part of a form element but they do update/change the search results.
+		if (e.target.name === 'bodyStyle') params.body_style = [ e.target.value ];
+		if (e.target.name === 'sort_by') params.sort_by = e.target.value;
+		if (e.target.name === 'pageChange') params.start = e.target.value * newState.search.params.rows;
 
 		newState.search.params = params;
 
+		//Starts building the query string
 		if (params.zip) queryParams.push(`zip=${params.zip}`);
 		if (params.radius) queryParams.push(`radius=${params.radius}`);
 
@@ -225,11 +216,13 @@ function App() {
 		queryParams.push(`start=${params.start}`);
 		queryParams.push(`rows=${params.rows}`);
 
-		console.log(`/api/search?${queryParams.join('&')}`);
+		const queryString = queryParams.join('&');
+
+		console.log(`/api/search?${queryString}`);
 
 		// ...fetch data
-		// fetch(`http://localhost:8080/api/search?${queryParams.join('&')}`)
-		fetch(`/api/search?${queryParams.join('&')}`)
+		fetch(`http://localhost:8080/api/search?${queryString}`) // For local testing
+			// fetch(`/api/search?${queryParams.join('&')}`)
 			.then((res) => res.json())
 			.then((res) => {
 				console.log('Client response: ', res);
