@@ -11,6 +11,7 @@ import Results from './components/Results/Results';
 import SavedListings from './components/SavedListings/SavedListings';
 import Listing from './components/Listing/Listing';
 import Footer from './components/Footer/Footer';
+import { stat } from 'fs';
 
 function App() {
 	const [ state, setState ] = useState({
@@ -111,8 +112,6 @@ function App() {
 		loading: false
 	});
 
-	let params = { ...state.search.params };
-
 	useEffect(
 		() => {
 			console.log('APP COMPONENT RENDER');
@@ -146,7 +145,7 @@ function App() {
 		console.log('LOCAL STORAGE:', JSON.parse(window.localStorage.car_listings));
 	};
 
-	const updateRedirect = () => {
+	const resetRedirect = () => {
 		if (state.redirect_to !== '') {
 			const newState = { ...state };
 			newState.redirect_to = '';
@@ -158,37 +157,74 @@ function App() {
 		e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
 	};
 
-	const onFormChange = (e) => {
-		if (e.target.name === 'home-make') params.make = e.target.value ? [ e.target.value ] : [];
-		else if (
-			e.target.name === 'make' ||
-			e.target.name === 'body_style' ||
-			e.target.name === 'ext_color' ||
-			e.target.name === 'int_color' ||
-			e.target.name === 'doors'
-		) {
-			if (params[e.target.name].includes(e.target.value))
-				params[e.target.name] = params[e.target.name].filter((elem) => elem !== e.target.value);
-			else params[e.target.name].push(e.target.value);
-		} else params[e.target.name] = e.target.value;
-		console.log(params);
+	// const oldFormSubmit = (e) => {
+	// Technically not part of a form element but they do update/change the search results.
+	// if (e.target.name === 'bodyStyle') params.body_style = [ e.target.value ];
+	// if (e.target.name === 'sort_by') params.sort_by = e.target.value;
+	// if (e.target.name === 'pageChange') params.start = e.target.value * newState.search.params.rows;
+	// };
+
+	const getFormValues = (e) => {
+		e.preventDefault();
+		const newParams = {
+			zip: '',
+			radius: '',
+			min_price: '',
+			max_price: '',
+			condition: '',
+			year: '',
+			mileage: '',
+			make: [],
+			body_style: [],
+			ext_color: [],
+			int_color: [],
+			transmission: '',
+			doors: [],
+			start: 0,
+			rows: 25,
+			sort_by: ''
+		};
+
+		newParams.zip = e.target.zip.value;
+		newParams.condition = e.target.condition.value;
+
+		if (e.target.name === 'home-form') {
+			newParams.make = e.target.make.value ? [ e.target.make.value ] : [];
+		} else if (e.target.name === 'results-form') {
+			newParams.radius = e.target.radius.value;
+			newParams.min_price = e.target.min_price.value;
+			newParams.max_price = e.target.max_price.value;
+			newParams.condition = e.target.condition.value;
+			newParams.year = e.target.year.value;
+			newParams.mileage = e.target.mileage.value;
+			newParams.transmission = e.target.transmission.value;
+
+			e.target.doors.forEach((door) => {
+				if (door.checked) newParams.doors.push(door.value);
+			});
+
+			e.target.body_style.forEach((style) => {
+				if (style.checked) newParams.body_style.push(style.value);
+			});
+
+			e.target.ext_color.forEach((color) => {
+				if (color.checked) newParams.ext_color.push(color.value);
+			});
+
+			e.target.int_color.forEach((color) => {
+				if (color.checked) newParams.int_color.push(color.value);
+			});
+
+			e.target.make.forEach((make) => {
+				if (make.checked) newParams.make.push(make.value);
+			});
+		}
+
+		buildQueryString(newParams);
 	};
 
-	const onFormSubmit = (e) => {
-		e.preventDefault();
-
-		const newState = { ...state };
+	const buildQueryString = (params) => {
 		const queryParamsArr = [];
-
-		newState.search.params.start = 0;
-		params.start = 0;
-
-		// Technically not part of a form element but they do update/change the search results.
-		if (e.target.name === 'bodyStyle') params.body_style = [ e.target.value ];
-		if (e.target.name === 'sort_by') params.sort_by = e.target.value;
-		if (e.target.name === 'pageChange') params.start = e.target.value * newState.search.params.rows;
-
-		newState.search.params = params;
 
 		//Starts building the query string
 		if (params.zip) queryParamsArr.push(`zip=${params.zip}`);
@@ -218,51 +254,34 @@ function App() {
 		queryParamsArr.push(`rows=${params.rows}`);
 
 		const queryString = queryParamsArr.join('&');
-
 		console.log(`/api/search?${queryString}`);
 
+		fetchData(queryString, params);
+	};
+
+	const fetchData = (queryString, params) => {
+		const newState = { ...state };
+
 		// ...fetch data
-		// fetch(`http://localhost:8080/api/search?${queryString}`) // For local testing
-		fetch(`/api/search?${queryString}`) // For Production use
+		fetch(`http://localhost:8080/api/search?${queryString}`) // For local testing
+			// fetch(`/api/search?${queryString}`)               // For Production use
 			.then((res) => res.json())
 			.then((res) => {
 				console.log('Client response: ', res);
 				newState.search.result.num_of_results = res.result && res.result.num_found ? res.result.num_found : 0;
 				newState.search.result.listings = res.result && res.result.listings ? res.result.listings : [];
-			})
-			.then(() => {
+				newState.search.params = params;
 				newState.redirect_to = <Redirect to="/search" />;
-				setState(newState);
 			})
 			.catch((err) => {
 				console.log('CATCH ERROR: ', err);
 				newState.search.result.num_of_results = 0;
 				newState.search.result.listings = [];
+			})
+			.then(() => {
+				setState(newState);
+				console.log(state.search.params);
 			});
-	};
-
-	const resetHomeParamsValues = (values, e) => {
-		const newSearchParams = {
-			zip: values.zip || '',
-			radius: '',
-			min_price: '',
-			max_price: '',
-			condition: values.condition || '',
-			year: '',
-			mileage: '',
-			make: values.make ? [ values.make ] : [],
-			body_style: [],
-			ext_color: [],
-			int_color: [],
-			transmission: '',
-			doors: [],
-			start: 0,
-			rows: 25,
-			sort_by: ''
-		};
-		params = { ...newSearchParams };
-		console.log(params);
-		onFormSubmit(e);
 	};
 
 	return (
@@ -279,10 +298,10 @@ function App() {
 						component={() => (
 							<Home
 								carMakes={state.carMakes}
+								searchParams={state.search.params}
 								checkNumValue={checkNumValue}
-								updateRedirect={updateRedirect}
-								onFormChange={onFormChange}
-								resetHomeParamsValues={resetHomeParamsValues}
+								resetRedirect={resetRedirect}
+								onFormSubmit={getFormValues}
 							/>
 						)}
 					/>
@@ -292,10 +311,9 @@ function App() {
 						component={() => (
 							<Results
 								carMakes={state.carMakes}
-								formValues={state.search.params}
+								searchParams={state.search.params}
 								checkNumValue={checkNumValue}
-								onFormChange={onFormChange}
-								onFormSubmit={onFormSubmit}
+								onFormSubmit={getFormValues}
 								resultData={state.search.result}
 								saveToLocal={saveToLocal}
 								removeFromLocal={removeFromLocal}
