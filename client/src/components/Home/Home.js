@@ -3,7 +3,7 @@ import './Home.scss';
 
 import CarStyle from '../CarStyle/CarStyle';
 
-const Home = ({ carMakes, searchParams, checkNumValue, resetRedirect, onFormSubmit }) => {
+const Home = ({ carMakes, searchParams, checkNumValue, resetRedirect, onFormSubmit, carStyleSearch }) => {
 	useEffect(() => {
 		resetRedirect();
 	});
@@ -89,32 +89,32 @@ const Home = ({ carMakes, searchParams, checkNumValue, resetRedirect, onFormSubm
 
 				<div className="row">
 					<CarStyle
-						// resetHomeParamsValues={resetHomeParamsValues}
+						carStyleSearch={carStyleSearch}
 						carStyle="SUV"
 						imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_SUVCROSS.png"
 					/>
 					<CarStyle
-						// resetHomeParamsValues={resetHomeParamsValues}
+						carStyleSearch={carStyleSearch}
 						carStyle="Sedan"
 						imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_SEDAN.png"
 					/>
 					<CarStyle
-						// resetHomeParamsValues={resetHomeParamsValues}
+						carStyleSearch={carStyleSearch}
 						carStyle="Pickup"
 						imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_TRUCKS.png"
 					/>
 					<CarStyle
-						// resetHomeParamsValues={resetHomeParamsValues}
+						carStyleSearch={carStyleSearch}
 						carStyle="Hatchback"
 						imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_HATCH.png"
 					/>
 					<CarStyle
-						// resetHomeParamsValues={resetHomeParamsValues}
+						carStyleSearch={carStyleSearch}
 						carStyle="Coupe"
 						imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_COUPE.png"
 					/>
 					<CarStyle
-						// resetHomeParamsValues={resetHomeParamsValues}
+						carStyleSearch={carStyleSearch}
 						carStyle="Wagon"
 						imgUrl="https://content.autotrader.com/content/dam/autotrader/homepage/styles/DefaultDesk_Style_WAGON.png"
 					/>

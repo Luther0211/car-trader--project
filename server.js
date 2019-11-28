@@ -5,6 +5,7 @@ const Axios = require('axios');
 require('dotenv').config();
 
 const API_KEY = process.env.API_KEY;
+const API_KEY2 = process.env.API_KEY2;
 const MAPS_KEY = process.env.MAPS_KEY;
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -29,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.get('/api/search', (req, res) => {
 	console.log(req.url);
 	const urlParams = req.url.replace('/api/search?', '');
-	const fetchURL = `/search?api_key=${API_KEY}&${urlParams}`;
+	const fetchURL = `/search?api_key=${API_KEY2}&${urlParams}`;
 
 	API.get(fetchURL)
 		.then((result) => {
@@ -46,7 +47,7 @@ app.get('/api/listing/:listingId', (req, res) => {
 	const listingId = req.params.listingId;
 	console.log(listingId);
 
-	API.get(`/listing/${listingId}?api_key=${API_KEY}`).then((result) => {
+	API.get(`/listing/${listingId}?api_key=${API_KEY2}`).then((result) => {
 		result.data.map_key = MAPS_KEY;
 		res.status(result.status).json(result.data);
 	});

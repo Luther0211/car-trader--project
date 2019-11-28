@@ -164,6 +164,32 @@ function App() {
 	// if (e.target.name === 'pageChange') params.start = e.target.value * newState.search.params.rows;
 	// };
 
+	const carStyleSearch = (e) => {
+		const newParams = {
+			zip: '',
+			radius: '',
+			min_price: '',
+			max_price: '',
+			condition: '',
+			year: '',
+			mileage: '',
+			make: [],
+			body_style: [],
+			ext_color: [],
+			int_color: [],
+			transmission: '',
+			doors: [],
+			start: 0,
+			rows: 25,
+			sort_by: ''
+		};
+		const style = e.target.name.toLowerCase();
+		const queryString = `body_type=${style}`;
+
+		newParams.body_style = [ style ];
+		fetchData(queryString, newParams);
+	};
+
 	const getFormValues = (e) => {
 		e.preventDefault();
 		const newParams = {
@@ -254,14 +280,14 @@ function App() {
 		queryParamsArr.push(`rows=${params.rows}`);
 
 		const queryString = queryParamsArr.join('&');
-		console.log(`/api/search?${queryString}`);
+		// console.log(`/api/search?${queryString}`);
 
 		fetchData(queryString, params);
 	};
 
 	const fetchData = (queryString, params) => {
 		const newState = { ...state };
-
+		console.log(`/api/search?${queryString}`);
 		// ...fetch data
 		fetch(`http://localhost:8080/api/search?${queryString}`) // For local testing
 			// fetch(`/api/search?${queryString}`)               // For Production use
@@ -302,6 +328,7 @@ function App() {
 								checkNumValue={checkNumValue}
 								resetRedirect={resetRedirect}
 								onFormSubmit={getFormValues}
+								carStyleSearch={carStyleSearch}
 							/>
 						)}
 					/>
