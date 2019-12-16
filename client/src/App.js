@@ -144,7 +144,6 @@ function App() {
 
 	// const oldFormSubmit = (e) => {
 	// Technically not part of a form element but they do update/change the search results.
-	// if (e.target.name === 'bodyStyle') params.body_style = [ e.target.value ];
 	// if (e.target.name === 'sort_by') params.sort_by = e.target.value;
 	// };
 
@@ -176,6 +175,11 @@ function App() {
 
 	const onPageChange = (e) => {
 		const newSearchParams = { ...searchParams, start: e.target.value * searchParams.rows };
+		buildQueryString(newSearchParams);
+	};
+
+	const onSortChange = (e) => {
+		const newSearchParams = { ...searchParams, sort_by: e.target.value };
 		buildQueryString(newSearchParams);
 	};
 
@@ -328,6 +332,7 @@ function App() {
 								checkNumValue={checkNumValue}
 								onFormSubmit={getFormValues}
 								onPageChange={onPageChange}
+								onSortChange={onSortChange}
 								searchResults={searchResults}
 								saveToLocal={saveToLocal}
 								removeFromLocal={removeFromLocal}

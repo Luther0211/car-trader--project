@@ -8,7 +8,7 @@ import { Accordion, Card} from 'react-bootstrap'
 import ResItem from '../ResItem/ResItem'
 
 
-const Results = ({carMakes, searchParams, checkNumValue, onFormSubmit, onPageChange, searchResults, saveToLocal, removeFromLocal }) => {
+const Results = ({carMakes, searchParams, checkNumValue, onFormSubmit, onPageChange, onSortChange, searchResults, saveToLocal, removeFromLocal }) => {
     // const searchParams = {...searchParams }
     
     const numOfPages = Math.ceil( searchResults.num_of_results / searchParams.rows ) < 1000 / searchParams.rows ? Math.ceil( searchResults.num_of_results / searchParams.rows ) : 1000 / searchParams.rows
@@ -283,7 +283,7 @@ const Results = ({carMakes, searchParams, checkNumValue, onFormSubmit, onPageCha
                         </div>
 
                         <div className="col-12 col-sm-6 d-flex justify-content-center justify-content-sm-end">
-                            <select className="form-control" name="sort_by" defaultValue={searchParams.sort_by} onChange={(e) => onFormSubmit(e)}>
+                            <select className="form-control" name="sort_by" defaultValue={searchParams.sort_by} onChange={(e) => onSortChange(e)}>
                                 <option value="">Sort by: Relevance</option>
                                 <option value="sort_by=price&sort_order=asc">Sort by: Price - Lowest</option>
                                 <option value="sort_by=price&sort_order=desc">Sort by: Price - Highest</option>
