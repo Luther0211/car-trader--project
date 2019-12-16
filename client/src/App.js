@@ -34,6 +34,7 @@ function App() {
 		rows: 25,
 		sort_by: ''
 	});
+
 	const carMakes = [
 		'Acura',
 		'Alfa Romeo',
@@ -145,7 +146,6 @@ function App() {
 	// Technically not part of a form element but they do update/change the search results.
 	// if (e.target.name === 'bodyStyle') params.body_style = [ e.target.value ];
 	// if (e.target.name === 'sort_by') params.sort_by = e.target.value;
-	// if (e.target.name === 'pageChange') params.start = e.target.value * newState.search.params.rows;
 	// };
 
 	const carStyleSearch = (e) => {
@@ -172,6 +172,11 @@ function App() {
 
 		newParams.body_style = [ style ];
 		fetchData(queryString, newParams);
+	};
+
+	const onPageChange = (e) => {
+		const newSearchParams = { ...searchParams, start: e.target.value * searchParams.rows };
+		buildQueryString(newSearchParams);
 	};
 
 	const getFormValues = (e) => {
@@ -322,6 +327,7 @@ function App() {
 								searchParams={searchParams}
 								checkNumValue={checkNumValue}
 								onFormSubmit={getFormValues}
+								onPageChange={onPageChange}
 								searchResults={searchResults}
 								saveToLocal={saveToLocal}
 								removeFromLocal={removeFromLocal}

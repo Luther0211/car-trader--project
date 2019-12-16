@@ -8,7 +8,7 @@ import { Accordion, Card} from 'react-bootstrap'
 import ResItem from '../ResItem/ResItem'
 
 
-const Results = ({carMakes, searchParams, checkNumValue, onFormSubmit, searchResults, saveToLocal, removeFromLocal }) => {
+const Results = ({carMakes, searchParams, checkNumValue, onFormSubmit, onPageChange, searchResults, saveToLocal, removeFromLocal }) => {
     // const searchParams = {...searchParams }
     
     const numOfPages = Math.ceil( searchResults.num_of_results / searchParams.rows ) < 1000 / searchParams.rows ? Math.ceil( searchResults.num_of_results / searchParams.rows ) : 1000 / searchParams.rows
@@ -20,7 +20,7 @@ const Results = ({carMakes, searchParams, checkNumValue, onFormSubmit, searchRes
                 value: numPage - 1
             }
         }
-        onFormSubmit(e)
+        onPageChange(e)
     }
 
     const car_year = []
