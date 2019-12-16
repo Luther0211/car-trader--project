@@ -273,7 +273,7 @@ const Results = ({carMakes, searchParams, checkNumValue, onFormSubmit, onPageCha
                     
                         <div className="col-12 col-sm-6 text-center text-sm-left">
                             <p className="Results__information mt-2">
-                                <span className="Results__number">{ searchResults.num_of_results }</span> Results
+                                <span className="Results__number">{ searchResults.num_of_results.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace('.00', '') }</span> Results
                                 {
                                     searchParams.zip 
                                         ?   <span> in <span className="Results__zip"> <i className="fas fa-map-marker-alt"></i> {searchParams.zip} </span> </span>
