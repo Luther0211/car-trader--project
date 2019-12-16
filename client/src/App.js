@@ -280,8 +280,8 @@ function App() {
 	const fetchData = (queryString, params) => {
 		console.log(`/api/search?${queryString}`);
 		// ...fetch data
-		fetch(`http://localhost:8080/api/search?${queryString}`) // For local testing
-			// fetch(`/api/search?${queryString}`)               // For Production use
+		// fetch(`http://localhost:8080/api/search?${queryString}`) // For local testing
+		fetch(`/api/search?${queryString}`) // For Production use
 			.then((res) => res.json())
 			.then((res) => {
 				console.log('Client response: ', res);

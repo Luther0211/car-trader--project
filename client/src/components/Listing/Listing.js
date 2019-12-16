@@ -68,8 +68,8 @@ const Listing = ({ removeFromLocal, saveToLocal }) => {
 
 			// COMMENTED OUT TO NOT FETCH FROM API ON EVERY RELOAD, USING LOCAL DATA WHILE DEVELOPING
 
-			fetch(`http://localhost:8080/api/listing/${listingId}`) // For local testing
-				// fetch(`/api/listing/${listingId}`) // For Production use
+			// fetch(`http://localhost:8080/api/listing/${listingId}`) // For local testing
+			fetch(`/api/listing/${listingId}`) // For Production use
 				.then((res) => res.json())
 				.then((res) => {
 					const newListing = { ...Listing };
