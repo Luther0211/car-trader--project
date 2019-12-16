@@ -8,10 +8,10 @@ import { Accordion, Card} from 'react-bootstrap'
 import ResItem from '../ResItem/ResItem'
 
 
-const Results = ({carMakes, searchParams, checkNumValue, onFormSubmit, resultData, saveToLocal, removeFromLocal }) => {
+const Results = ({carMakes, searchParams, checkNumValue, onFormSubmit, searchResults, saveToLocal, removeFromLocal }) => {
     // const searchParams = {...searchParams }
-    const numOfPages = Math.ceil( resultData.num_of_results / searchParams.rows ) < 1000 / searchParams.rows ? Math.ceil( resultData.num_of_results / searchParams.rows ) : 1000 / searchParams.rows
-
+    
+    const numOfPages = Math.ceil( searchResults.num_of_results / searchParams.rows ) < 1000 / searchParams.rows ? Math.ceil( searchResults.num_of_results / searchParams.rows ) : 1000 / searchParams.rows
     const changePage = (numPage) => {
         const e = {
             preventDefault: () => {console.log('preventDefault')},
@@ -262,7 +262,7 @@ const Results = ({carMakes, searchParams, checkNumValue, onFormSubmit, resultDat
         </form>    
     )
 
-    const ResultElements = resultData.listings.map(listing => <ResItem key={listing.id} data={listing} saveToLocal={saveToLocal} removeFromLocal={removeFromLocal} />)
+    const ResultElements = searchResults.listings.map(listing => <ResItem key={listing.id} data={listing} saveToLocal={saveToLocal} removeFromLocal={removeFromLocal} />)
 
 
     return (
@@ -273,7 +273,7 @@ const Results = ({carMakes, searchParams, checkNumValue, onFormSubmit, resultDat
                     
                         <div className="col-12 col-sm-6 text-center text-sm-left">
                             <p className="Results__information mt-2">
-                                <span className="Results__number">{ resultData.num_of_results }</span> Results
+                                <span className="Results__number">{ searchResults.num_of_results }</span> Results
                                 {
                                     searchParams.zip 
                                         ?   <span> in <span className="Results__zip"> <i className="fas fa-map-marker-alt"></i> {searchParams.zip} </span> </span>

@@ -11,146 +11,130 @@ import Results from './components/Results/Results';
 import SavedListings from './components/SavedListings/SavedListings';
 import Listing from './components/Listing/Listing';
 import Footer from './components/Footer/Footer';
-import { stat } from 'fs';
 
 function App() {
-	const [ state, setState ] = useState({
-		carMakes: [
-			'Acura',
-			'Alfa Romeo',
-			'AMC',
-			'Aston Martin',
-			'Audi',
-			'Bentley',
-			'BMW',
-			'Bugatti',
-			'Buick',
-			'Cadillac',
-			'Chevrolet',
-			'Chrysler',
-			'Daewoo',
-			'Datsun',
-			'DeLorean',
-			'Dodge',
-			'Eagle',
-			'Ferrari',
-			'FIAT',
-			'Fisker',
-			'Ford',
-			'Freightliner',
-			'Genesis',
-			'Geo',
-			'GMC',
-			'Honda',
-			'HUMMER',
-			'Hyundai',
-			'INFINITI',
-			'Isuzu',
-			'Jaguar',
-			'Jeep',
-			'Karma',
-			'Kia',
-			'Lamborghini',
-			'Land Rover',
-			'Lexus',
-			'Lincoln',
-			'Lotus',
-			'Maserati',
-			'Maybach',
-			'MAZDA',
-			'McLaren',
-			'Mercedes-Benz',
-			'Mercury',
-			'MINI',
-			'Mitsubishi',
-			'Nissan',
-			'Oldsmobile',
-			'Plymouth',
-			'Pontiac',
-			'Porsche',
-			'RAM',
-			'Rolls-Royce',
-			'Saab',
-			'Saturn',
-			'Scion',
-			'smart',
-			'SRT',
-			'Subaru',
-			'Suzuki',
-			'Tesla',
-			'Toyota',
-			'Volkswagen',
-			'Volvo',
-			'Yugo'
-		],
-		search: {
-			params: {
-				zip: '',
-				radius: '',
-				min_price: '',
-				max_price: '',
-				condition: '',
-				year: '',
-				mileage: '',
-				make: [],
-				body_style: [],
-				ext_color: [],
-				int_color: [],
-				transmission: '',
-				doors: [],
-				start: 0,
-				rows: 25,
-				sort_by: ''
-			},
-			result: {
-				num_of_results: 0,
-				listings: []
-			}
-		},
-		redirect_to: '',
-		saved_posts: [],
-		loading: false
+	const [ savedPosts, setSavedPosts ] = useState([]);
+	const [ redirectTo, setRedirectTo ] = useState('');
+	const [ searchResults, setSearchResults ] = useState({ num_of_results: 0, listings: [] });
+	const [ searchParams, setSearchParams ] = useState({
+		zip: '',
+		radius: '',
+		min_price: '',
+		max_price: '',
+		condition: '',
+		year: '',
+		mileage: '',
+		make: [],
+		body_style: [],
+		ext_color: [],
+		int_color: [],
+		transmission: '',
+		doors: [],
+		start: 0,
+		rows: 25,
+		sort_by: ''
 	});
+	const carMakes = [
+		'Acura',
+		'Alfa Romeo',
+		'AMC',
+		'Aston Martin',
+		'Audi',
+		'Bentley',
+		'BMW',
+		'Bugatti',
+		'Buick',
+		'Cadillac',
+		'Chevrolet',
+		'Chrysler',
+		'Daewoo',
+		'Datsun',
+		'DeLorean',
+		'Dodge',
+		'Eagle',
+		'Ferrari',
+		'FIAT',
+		'Fisker',
+		'Ford',
+		'Freightliner',
+		'Genesis',
+		'Geo',
+		'GMC',
+		'Honda',
+		'HUMMER',
+		'Hyundai',
+		'INFINITI',
+		'Isuzu',
+		'Jaguar',
+		'Jeep',
+		'Karma',
+		'Kia',
+		'Lamborghini',
+		'Land Rover',
+		'Lexus',
+		'Lincoln',
+		'Lotus',
+		'Maserati',
+		'Maybach',
+		'MAZDA',
+		'McLaren',
+		'Mercedes-Benz',
+		'Mercury',
+		'MINI',
+		'Mitsubishi',
+		'Nissan',
+		'Oldsmobile',
+		'Plymouth',
+		'Pontiac',
+		'Porsche',
+		'RAM',
+		'Rolls-Royce',
+		'Saab',
+		'Saturn',
+		'Scion',
+		'smart',
+		'SRT',
+		'Subaru',
+		'Suzuki',
+		'Tesla',
+		'Toyota',
+		'Volkswagen',
+		'Volvo',
+		'Yugo'
+	];
 
 	useEffect(
 		() => {
 			console.log('APP COMPONENT RENDER');
 			const car_listings = window.localStorage.getItem('car_listings');
 
-			if (car_listings && car_listings !== JSON.stringify(state.saved_posts)) {
-				const newState = { ...state };
-				newState.saved_posts = JSON.parse(car_listings);
-				setState(newState);
+			if (car_listings && car_listings !== JSON.stringify(savedPosts)) {
+				setSavedPosts(JSON.parse(car_listings));
 			}
 		},
-		[ state.search.result, state.redirect_to ]
+		[ savedPosts ]
 	);
 
-	const saveToLocal = (data) => {
-		const newState = { ...state };
+	const saveToLocal = (newItem) => {
+		const newSavedPosts = [ ...savedPosts, newItem ];
 
-		newState.saved_posts.push(data);
+		window.localStorage.setItem('car_listings', JSON.stringify(newSavedPosts));
+		setSavedPosts(newSavedPosts);
 
-		window.localStorage.setItem('car_listings', JSON.stringify(newState.saved_posts));
-		setState(newState);
 		console.log('LOCAL STORAGE:', JSON.parse(window.localStorage.car_listings));
 	};
 
 	const removeFromLocal = (id) => {
-		const newState = { ...state };
-		newState.saved_posts = newState.saved_posts.filter((listing) => listing.id !== id);
+		const newSavedPosts = savedPosts.filter((listing) => listing.id !== id);
 
-		window.localStorage.setItem('car_listings', JSON.stringify(newState.saved_posts));
-		setState(newState);
+		window.localStorage.setItem('car_listings', JSON.stringify(newSavedPosts));
+		setSavedPosts(newSavedPosts);
+
 		console.log('LOCAL STORAGE:', JSON.parse(window.localStorage.car_listings));
 	};
 
 	const resetRedirect = () => {
-		if (state.redirect_to !== '') {
-			const newState = { ...state };
-			newState.redirect_to = '';
-			setState(newState);
-		}
+		if (redirectTo !== '') setRedirectTo('');
 	};
 
 	const checkNumValue = (e) => {
@@ -280,13 +264,11 @@ function App() {
 		queryParamsArr.push(`rows=${params.rows}`);
 
 		const queryString = queryParamsArr.join('&');
-		// console.log(`/api/search?${queryString}`);
 
 		fetchData(queryString, params);
 	};
 
 	const fetchData = (queryString, params) => {
-		const newState = { ...state };
 		console.log(`/api/search?${queryString}`);
 		// ...fetch data
 		fetch(`http://localhost:8080/api/search?${queryString}`) // For local testing
@@ -294,19 +276,18 @@ function App() {
 			.then((res) => res.json())
 			.then((res) => {
 				console.log('Client response: ', res);
-				newState.search.result.num_of_results = res.result && res.result.num_found ? res.result.num_found : 0;
-				newState.search.result.listings = res.result && res.result.listings ? res.result.listings : [];
-				newState.search.params = params;
-				newState.redirect_to = <Redirect to="/search" />;
+				const newNum_of_results = res.result && res.result.num_found ? res.result.num_found : 0;
+				const newListings = res.result && res.result.listings ? res.result.listings : [];
+
+				setSearchResults({ num_of_results: newNum_of_results, listings: newListings });
+				setSearchParams(params);
+			})
+			.then(() => {
+				setRedirectTo(<Redirect to="/search" />);
 			})
 			.catch((err) => {
 				console.log('CATCH ERROR: ', err);
-				newState.search.result.num_of_results = 0;
-				newState.search.result.listings = [];
-			})
-			.then(() => {
-				setState(newState);
-				console.log(state.search.params);
+				setSearchResults({ num_of_results: 0, listings: [] });
 			});
 	};
 
@@ -315,7 +296,7 @@ function App() {
 			<Router>
 				<Navbar />
 
-				{state.redirect_to}
+				{redirectTo}
 
 				<Switch>
 					<Route
@@ -323,8 +304,8 @@ function App() {
 						path="/"
 						component={() => (
 							<Home
-								carMakes={state.carMakes}
-								searchParams={state.search.params}
+								carMakes={carMakes}
+								searchParams={searchParams}
 								checkNumValue={checkNumValue}
 								resetRedirect={resetRedirect}
 								onFormSubmit={getFormValues}
@@ -337,11 +318,11 @@ function App() {
 						path="/search"
 						component={() => (
 							<Results
-								carMakes={state.carMakes}
-								searchParams={state.search.params}
+								carMakes={carMakes}
+								searchParams={searchParams}
 								checkNumValue={checkNumValue}
 								onFormSubmit={getFormValues}
-								resultData={state.search.result}
+								searchResults={searchResults}
 								saveToLocal={saveToLocal}
 								removeFromLocal={removeFromLocal}
 							/>
@@ -352,7 +333,7 @@ function App() {
 						path="/saved"
 						component={() => (
 							<SavedListings
-								saved={state.saved_posts}
+								saved={savedPosts}
 								saveToLocal={saveToLocal}
 								removeFromLocal={removeFromLocal}
 							/>
