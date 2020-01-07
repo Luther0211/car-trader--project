@@ -8,19 +8,6 @@ const Home = ({ carMakes, searchParams, checkNumValue, resetRedirect, onFormSubm
 		resetRedirect();
 	});
 
-	// const updateParamsAndSubmitForm = (e) => {
-	// 	e.preventDefault();
-
-	// 	const values = {
-	// 		make: [ e.target['home-make'].value ],
-	// 		condition: e.target['condition'].value,
-	// 		zip: e.target['zip'].value
-	// 	};
-
-	// 	console.log(e.target['home-make']);
-	// 	// resetHomeParamsValues(values, e);
-	// };
-
 	return (
 		<div className="Home">
 			<div className="Home__main-section jumbotron rounded-0">
@@ -33,12 +20,7 @@ const Home = ({ carMakes, searchParams, checkNumValue, resetRedirect, onFormSubm
 					<form className="mb-5" onSubmit={(e) => onFormSubmit(e)} name="home-form">
 						<div className="form-row">
 							<div className="col-12 col-sm-6 col-md-4 mb-2">
-								<select
-									className="form-control"
-									name="make"
-									defaultValue={searchParams.make[0]}
-									// onChange={(e) => onFormChange(e)}
-								>
+								<select className="form-control" name="make" defaultValue={searchParams.make[0]}>
 									<option value="">Any Make</option>
 									{carMakes.map((m) => (
 										<option value={m} key={m}>
